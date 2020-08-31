@@ -1,5 +1,6 @@
 import { userConstants } from "../constants";
 import { userService } from "../services";
+import { history } from '../utils/history';
 
 export const userActions = {
   login
@@ -13,8 +14,9 @@ function login(loginForm) {
     userService.login(username, password)
     .then(
       response => {
-        console.log(response)
         dispatch(success(response));
+        history.push("/");
+        console.log("push");
       }
     )
     .catch(

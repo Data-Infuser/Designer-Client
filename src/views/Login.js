@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container, Card, CardHeader, CardContent,TextField, Button} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { userActions } from '../actions/userActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -35,18 +35,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
 function Login() {
   const classes = useStyles();
   const dispatch = useDispatch();
-
+  
   const initialLoginForm = {
     username: "",
     password: ""
   }
-
   const [loginForm, setLoginForm] = useState(initialLoginForm);
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector(state => state.users.loading);
 
   function handleChange(e) {
     const newForm = {
