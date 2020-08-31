@@ -1,6 +1,7 @@
-import { userConstants } from "../constants";
+import { userConstants, errorConstants } from "../constants";
 import { userService } from "../services";
 import { history } from '../utils/history';
+import { alertActions } from './alertActions';
 
 export const userActions = {
   login
@@ -23,6 +24,8 @@ function login(loginForm) {
       err => {
         console.error(err);
         dispatch(failure(err));
+        const errorMessage = errorConstants[err] ? errorConstants[err] : errorConstants.GLOBAL_0001
+        dispatch(alertActions.alert(errorMessage));
       }
     )
   }

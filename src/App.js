@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import { history } from './utils/history';
 import Login from './views/Login';
 import { useDispatch } from 'react-redux';
+import { ErrorDialog } from './views/common/ErrorDialog';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
@@ -26,6 +27,7 @@ function App() {
   
   return (
     <div className="App">
+      <ErrorDialog/>
       <Router history={history}>
         <Switch>
           <Route path="/login" component={Login}/>

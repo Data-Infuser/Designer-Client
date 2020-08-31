@@ -28,7 +28,7 @@ async function login(username, password) {
     } catch (err) {
       console.error(err);
       if(err.response) {
-        reject(err.response.data.message);
+        reject(err.response.data.code);
       } else {
         reject(err.message);
       } 
