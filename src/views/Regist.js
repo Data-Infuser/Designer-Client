@@ -23,10 +23,10 @@ const useStyles = makeStyles((theme) => ({
     padding: 30,
     marginTop: 30
   },
-  loginForm: {
+  registForm: {
     marginTop: 30
   },
-  loginContainer: {
+  registContainer: {
     display: "flex",
     flexDirection: "column"
   },
@@ -43,57 +43,56 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Login() {
+function Regist() {
   const classes = useStyles();
   const dispatch = useDispatch();
   
-  const initialLoginForm = {
+  const initialRegistForm = {
     username: "",
-    password: ""
+    password: "",
+    passwordConfirm: "",
+    name: "",
+    email: ""
   }
-  const [loginForm, setLoginForm] = useState(initialLoginForm);
+  const [registForm, setRegistForm] = useState(initialRegistForm);
   const loading = useSelector(state => state.users.loading);
 
   function handleChange(e) {
     const newForm = {
-      ...loginForm,
+      ...registForm,
       [e.target.name]: e.target.value
     }
-    setLoginForm(newForm);
+    setRegistForm(newForm);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(userActions.login(loginForm));
   }
 
-  function onClickRegist(e) {
-    history.push('/regist');
-  }
   return (
     <Box className={classes.root}>
       <Card className={classes.loginCard}>
         <CardHeader
-          title="로그인"
+          title="회원가입"
           subheader="API Designer"
         />
         <CardContent>
-        <form className={classes.loginForm} noValidate autoComplete="off" onSubmit={handleSubmit}>
-          <Container className={classes.loginContainer} maxWidth="lg">
-            <TextField className={classes.input} autoComplete='false' id="usernameInput" label="Username" name="username" value={loginForm.username} onChange={handleChange}/>
-            <TextField className={classes.input} autoComplete='false' id="passwordInput" label="Password" name="password" value={loginForm.password} onChange={handleChange} type="password"/>
+        <form className={classes.registForm} noValidate autoComplete="off" onSubmit={handleSubmit}>
+          <Container className={classes.registContainer} maxWidth="lg">
+            <TextField className={classes.input} autoComplete='false' id="usernameInput" label="Username" name="username" value={registForm.username} onChange={handleChange}/>
+            <TextField className={classes.input} autoComplete='false' id="passwordInput" label="Password" name="password" value={registForm.password} onChange={handleChange} type="password"/>
+            <TextField className={classes.input} autoComplete='false' id="passwordConfirmInput" label="Password Confirm" name="passwordConfirm" value={registForm.passwordConfirm} onChange={handleChange} type="password"/>
+            <TextField className={classes.input} autoComplete='false' id="nameInput" label="Name" name="name" value={registForm.name} onChange={handleChange}/>
+            <TextField className={classes.input} autoComplete='false' id="emailInput" label="Email" name="email" value={registForm.email} onChange={handleChange}/>
           </Container>
           <Grid className={classes.buttonArea} container direction="column" justify="center" alignitem="center">
             <Grid item>
               {!loading &&
-                <Button type="submit" className={classes.loginButton} variant="contained">로그인</Button>
+                <Button type="submit" className={classes.loginButton} variant="contained">가입</Button>
               }
               {loading &&
-                <Button disabled className={classes.loginButton} variant="contained">로그인중...</Button>
+                <Button disabled className={classes.loginButton} variant="contained">처리중...</Button>
               }
-            </Grid>
-            <Grid item>
-              <Button variant="text" type="button" onClick={onClickRegist}>회원가입</Button>  
             </Grid>
           </Grid>
         </form>
@@ -103,4 +102,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Regist;

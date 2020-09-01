@@ -5,6 +5,7 @@ import { history } from './utils/history';
 import Login from './views/Login';
 import { ErrorDialog } from './views/common/ErrorDialog';
 import { Typography } from '@material-ui/core';
+import Regist from './views/Regist';
 
 
 
@@ -25,6 +26,7 @@ function App() {
       <ErrorDialog/>
       <Router history={history}>
         <Switch>
+          <Route path="/regist" component={Regist}/>
           <Route path="/login" component={Login}/>
           <PrivateRoute path="/" component={Main}/>
         </Switch>
