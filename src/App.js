@@ -3,8 +3,8 @@ import './App.css';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { history } from './utils/history';
 import Login from './views/Login';
-import { useDispatch } from 'react-redux';
 import { ErrorDialog } from './views/common/ErrorDialog';
+import { Typography } from '@material-ui/core';
 
 
 
@@ -36,7 +36,9 @@ function App() {
 function Main() {
   return (
     <div>
-      main
+      <Typography>
+        main
+      </Typography>
     </div>
   )
 }
