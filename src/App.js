@@ -6,6 +6,8 @@ import Login from './views/Login';
 import { useDispatch } from 'react-redux';
 import { ErrorDialog } from './views/common/ErrorDialog';
 
+
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     localStorage.getItem('users')
@@ -18,13 +20,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 function App() {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    history.listen((location, action) => {
-    })
-  }, [])
-  
   return (
     <div className="App">
       <ErrorDialog/>

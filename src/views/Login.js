@@ -69,8 +69,8 @@ function Login() {
         <CardContent>
         <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
           <Container className={classes.loginContainer} maxWidth="lg">
-            <TextField className={classes.input} id="usernameInput" label="Username" name="username" value={loginForm.username} onChange={handleChange}/>
-            <TextField className={classes.input} id="passwordInput" label="Password" name="password" value={loginForm.password} onChange={handleChange} type="password"/>
+            <TextField className={classes.input} autoComplete={false} id="usernameInput" label="Username" name="username" value={loginForm.username} onChange={handleChange}/>
+            <TextField className={classes.input} autoComplete={false} id="passwordInput" label="Password" name="password" value={loginForm.password} onChange={handleChange} type="password"/>
           </Container>
           {!loading &&
             <Button type="submit" className={classes.loginButton} variant="contained">로그인</Button>
