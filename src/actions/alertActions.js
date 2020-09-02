@@ -5,12 +5,12 @@ export const alertActions = {
   clear
 }
 
-function alert(errorMessage) {
+function alert(errorMessage, title = undefined) {
   return dispatch => {
-    dispatch(showAlert(errorMessage));
+    dispatch(showAlert(title, errorMessage));
   }
 
-  function showAlert(message) { return { type: alertConstants.ERROR, message } }
+  function showAlert(title, message) { return { type: alertConstants.ERROR, title, message } }
 }
 
 function clear() {

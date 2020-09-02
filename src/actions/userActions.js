@@ -7,30 +7,41 @@ export const userActions = {
   login
 }
 
+/**
+ *  Axios middleware 를 이용한 login
+ * @param {
+ *  username: string,
+ *  password: string
+ * } loginForm 
+ */
 function login(loginForm) {
-  return dispatch => {
-    dispatch(request());
-    const username = loginForm.username;
-    const password = loginForm.password;
-    userService.login(username, password)
-    .then(
-      response => {
-        dispatch(success(response));
-        history.push("/");
-        console.log("push");
+  return {
+    type: 'LOGIN',
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/oauth/login',
+        data: {
+          username: loginForm.username,
+          password: loginForm.password
+        }
+      },
+      options: {
+        onSuccess: ({ dispatch, response }) => {
+          dispatch({ type: userConstants.LOGIN_SUCCESS, payload: response });
+        },
+        onError: ({ dispatch, error }) => {
+          dispatch({ type: userConstants.LOGIN_FAIL, error: error });
+          let errCode;
+          if(error.response) {
+            errCode = error.response.data.code;
+          } else {
+            errCode = error.message;
+          } 
+          const errorMessage = errorConstants[errCode] ? errorConstants[errCode] : errorConstants.GLOBAL_0001
+          dispatch(alertActions.alert(errorMessage));
+        }
       }
-    )
-    .catch(
-      err => {
-        console.error(err);
-        dispatch(failure(err));
-        const errorMessage = errorConstants[err] ? errorConstants[err] : errorConstants.GLOBAL_0001
-        dispatch(alertActions.alert(errorMessage));
-      }
-    )
+    }
   }
-
-  function request() { return { type: userConstants.LOGIN_REQUEST } }
-  function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-  function failure(err) { return { type: userConstants.LOGIN_FAILURE, err } }
 }

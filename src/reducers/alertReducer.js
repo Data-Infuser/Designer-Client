@@ -10,6 +10,7 @@ export function alerts(state = {
     case alertConstants.ERROR:
       return produce(state, draft => {
         draft.open = true;
+        draft.titl = action.title;
         draft.message = action.message;
       })
     case alertConstants.CLEAR:

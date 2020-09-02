@@ -70,6 +70,7 @@ function Login() {
   function onClickRegist(e) {
     history.push('/regist');
   }
+  
   return (
     <Box className={classes.root}>
       <Card className={classes.loginCard}>

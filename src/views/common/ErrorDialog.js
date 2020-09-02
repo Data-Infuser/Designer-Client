@@ -21,7 +21,9 @@ export function ErrorDialog(props) {
       aria-labelledby="error-alert-dialog-title"
       aria-describedby="error-alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">{titleText}</DialogTitle>
+      { alert.title && 
+        <DialogTitle id="alert-dialog-title">{titleText}</DialogTitle>
+      }
       <DialogContent>
         {bodyMessage}
       </DialogContent>
