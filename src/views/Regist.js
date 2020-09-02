@@ -67,6 +67,7 @@ function Regist() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(userActions.regist(registForm));
   }
 
   return (

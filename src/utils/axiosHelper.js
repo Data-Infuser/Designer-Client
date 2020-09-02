@@ -33,7 +33,8 @@ axiosClient.interceptors.response.use((response) => {
   return response
 }, function (error) {
   const originalRequest = error.config;
-  if (error.response.status === 401 && (originalRequest.url === `/oauth/login` || originalRequest.url === `/oauth/token`)) {
+  const authApis = [`/oauth/login`, `/oauth/token`, `/oauth/regist`]
+  if (error.response.status === 401 && authApis.includes(originalRequest.url)) {
     if(originalRequest.url === `/oauth/token`) resetUserInfo();
     return Promise.reject(error);
   }

@@ -18,7 +18,6 @@ export function users(state = {
         localStorage.setItem('token', user.token);
         localStorage.setItem('refreshToken', user.refreshToken);
         localStorage.setItem('users', JSON.stringify(user));
-        history.push("/");
         draft.loading = false;
         draft.user = action.user;
       })
@@ -27,6 +26,19 @@ export function users(state = {
         draft.loading = false;
         draft.error = action.error;
       })
+    case userConstants.REGIST:
+      return produce(state, draft => {
+        draft.loading = true;
+      })
+    case userConstants.REGIST_SUCCESS:
+      return produce(state, draft => {
+        draft.loading = false;
+      })
+    case userConstants.REGIST_FAIL: {
+      return produce(state, draft => {
+        draft.loading = false;
+      })
+    }
     default:
       return state
   }
