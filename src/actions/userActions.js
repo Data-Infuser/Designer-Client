@@ -1,4 +1,4 @@
-import { userConstants, errorConstants } from "../constants";
+import { userConstants } from "../constants";
 import { userService } from "../services";
 import { history } from '../utils/history';
 import { alertActions } from './alertActions';
@@ -32,14 +32,7 @@ function login(loginForm) {
         },
         onError: ({ dispatch, error }) => {
           dispatch({ type: userConstants.LOGIN_FAIL, error: error });
-          let errCode;
-          if(error.response) {
-            errCode = error.response.data.code;
-          } else {
-            errCode = error.message;
-          } 
-          const errorMessage = errorConstants[errCode] ? errorConstants[errCode] : errorConstants.GLOBAL_0001
-          dispatch(alertActions.alert(errorMessage));
+          alertActions.handleError(dispatch, error);
         }
       }
     }
