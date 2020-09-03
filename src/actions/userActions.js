@@ -1,5 +1,4 @@
 import { userConstants } from "../constants";
-import { userService } from "../services";
 import { history } from '../utils/history';
 import { alertActions } from './alertActions';
 

@@ -7,8 +7,6 @@ import { ErrorDialog } from './views/common/ErrorDialog';
 import { Typography } from '@material-ui/core';
 import Regist from './views/Regist';
 
-
-
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     localStorage.getItem('users')
