@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { apiActions } from '../../actions/apiActions';
 
 export function ApiIndex() {
   const apis = useSelector(state => state.apis.items);
   const loading = useSelector(state => state.apis.loading);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(apiActions.getIndex());
+  }, [])
 
   return (
     <Box>
@@ -29,10 +35,10 @@ export function ApiIndex() {
             { loading &&
               <TableLodingProgress colSpan={9}/>
             }
-            { apis && Array.isArray(apis) && apis.length <= 0 &&
+            { !loading && apis && Array.isArray(apis) && apis.length <= 0 &&
               <EmptyApis/>
             }
-            { apis && Array.isArray(apis) && apis.map(api => {
+            { !loading && apis && Array.isArray(apis) && apis.map(api => {
                 return (
                   <TableRow>
                     <TableCell align="center">{api.id}</TableCell>
