@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, Menu, MenuItem, Box} from '@material-ui/core';
+import { AppBar, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemText, Toolbar, Typography, Menu, MenuItem, Box, Button} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -88,6 +88,9 @@ const useStyles = makeStyles((theme) => ({
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end',
   },
+  toolbarMenu: {
+    color: 'white'
+  }
 }));
 
 export function Layout(props) {
@@ -172,34 +175,20 @@ export function Layout(props) {
           <Typography variant="h6" noWrap className={classes.toobarTitle}>
             {props.header}
           </Typography>
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={userMenuOpen}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={logout} value="logout">Logout</MenuItem>
-            </Menu>
-          </div>
+          <Box>
+            <Button className={classes.toolbarMenu}>
+              공공데이터포털 바로가기
+            </Button>
+            <Button className={classes.toolbarMenu}>
+              Alrams
+            </Button>
+            <Button className={classes.toolbarMenu}>
+              MyPage
+            </Button>
+            <Button className={classes.toolbarMenu} onClick={logout}>
+              logout
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
       <Drawer
