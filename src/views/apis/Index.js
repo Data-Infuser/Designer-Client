@@ -1,8 +1,12 @@
 import React from 'react';
 import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
+import { useSelector } from 'react-redux';
 
 export function ApiIndex() {
+  const apis = useSelector(state => state.apis.items);
+  const loading = useSelector(state => state.apis.loading);
+
   return (
     <Box>
       <h2> API 목록 </h2>
@@ -22,26 +26,35 @@ export function ApiIndex() {
             </TableRow>
           </TableHead>
           <TableBody>
-            <TableRow>
-              <TableCell align="center">1</TableCell>
-              <TableCell align="center">공적 마스크 API</TableCell>
-              <TableCell align="center">V1</TableCell>
-              <TableCell align="center">/public-mask/v1</TableCell>
-              <TableCell align="center">3</TableCell>
-              <TableCell align="center">운영중</TableCell>
-              <TableCell align="center">2020-07-21 19:00</TableCell>
-              <TableCell align="center">2020-03-14 03:23</TableCell>
-              <TableCell>
-                <Button variant="outlined" size="small" color="primary">API 관리</Button>
-                <Button variant="outlined" size="small" color="secondary">버전 관리</Button>
-              </TableCell>
-            </TableRow>
-            <EmptyApis/>
-            <TableLodingProgress colSpan={9}/>
+            { loading &&
+              <TableLodingProgress colSpan={9}/>
+            }
+            { apis && Array.isArray(apis) && apis.length <= 0 &&
+              <EmptyApis/>
+            }
+            { apis && Array.isArray(apis) && apis.map(api => {
+                return (
+                  <TableRow>
+                    <TableCell align="center">{api.id}</TableCell>
+                    <TableCell align="center">{api.name}</TableCell>
+                    <TableCell align="center">{api.version}</TableCell>
+                    <TableCell align="center">{api.endPoint}</TableCell>
+                    <TableCell align="center">{api.operations.length}</TableCell>
+                    <TableCell align="center">{api.state}</TableCell>
+                    <TableCell align="center">{api.lastCalledAt}</TableCell>
+                    <TableCell align="center">{api.deployedAt}</TableCell>
+                    <TableCell>
+                      <Button variant="outlined" size="small" color="primary">API 관리</Button>
+                      <Button variant="outlined" size="small" color="secondary">버전 관리</Button>
+                    </TableCell>
+                  </TableRow>
+                )
+              })
+            }
           </TableBody>
         </Table>
       </TableContainer>
-      <Box mt={1} alignItems="center" flexWrap="wrap" style={{textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
+      <Box mt={4} alignItems="center" flexWrap="wrap" style={{textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
         <Pagination count={100}  showFirstButton showLastButton variant="outlined" shape="rounded" size="large" page={Number(1)}/>
       </Box>
     </Box>

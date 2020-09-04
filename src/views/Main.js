@@ -1,5 +1,5 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import { Typography } from '@material-ui/core';
 import { Layout } from './Layout';
 import { Route, Switch } from 'react-router-dom';
 import { ApiIndex } from './apis/Index';
@@ -20,7 +20,7 @@ export function Main(props) {
 function Home(){
   return (
     <Typography paragraph>
-      Home
+      Home      
     </Typography>
   )
 }
