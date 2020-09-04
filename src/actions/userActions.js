@@ -4,7 +4,15 @@ import { alertActions } from './alertActions';
 
 export const userActions = {
   login,
-  regist
+  regist,
+  logout
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("users");
+  history.push("/login");
 }
 
 /**

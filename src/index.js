@@ -23,7 +23,7 @@ const theme = createMuiTheme({
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
     ].join(','),
-    fontSize: 12
+    fontSize: 14
   },
   spacing: 4,
   overrides:{}

@@ -6,6 +6,7 @@ import Login from './views/Login';
 import { ErrorDialog } from './views/common/ErrorDialog';
 import { Typography } from '@material-ui/core';
 import Regist from './views/Regist';
+import { Main } from './views/Main';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
@@ -31,16 +32,6 @@ function App() {
       </Router>
     </div>
   );
-}
-
-function Main() {
-  return (
-    <div>
-      <Typography>
-        main
-      </Typography>
-    </div>
-  )
 }
 
 export default App;

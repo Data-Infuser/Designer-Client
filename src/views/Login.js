@@ -11,9 +11,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    marginTop: 100
+    display: "flex"
   },
   loginCard: {
     maxWidth: 600,
@@ -21,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     alignItems: "center",
     padding: 30,
-    marginTop: 30
+    marginTop: 150
   },
   loginForm: {
     marginTop: 30
