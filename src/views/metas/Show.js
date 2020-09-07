@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Box, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Table, Button, Input, Checkbox } from '@material-ui/core';
+import { history } from '../../utils/history';
 
 export function MetaShow() {
   const sampleData = [
@@ -76,6 +77,11 @@ export function MetaShow() {
   const handleChange = (e) => {
 
   }
+
+  const onButtonClick = (e) => {
+    history.push("/metas/1/service")
+  }
+
   return (
     <Container>
       <Box textAlign="left">
@@ -160,7 +166,7 @@ export function MetaShow() {
         </TableContainer>
       </Box>
       <Box mt={4} textAlign="right">
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={onButtonClick}>
           저장
         </Button>
       </Box>
