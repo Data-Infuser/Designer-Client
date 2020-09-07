@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import store from './utils/store';
 import { createMuiTheme } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const theme = createMuiTheme({
   palette: {
@@ -30,10 +31,12 @@ const theme = createMuiTheme({
 })
 
 ReactDOM.render(
-  <Provider store={store}>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+  <Provider store={store().store}>
+    <PersistGate loading={null} persistor={store().persistor}>
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 );
