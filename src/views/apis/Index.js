@@ -4,6 +4,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
 import { apiActions } from '../../actions/apiActions';
 import { history } from '../../utils/history';
+import { Link } from 'react-router-dom';
 
 
 
@@ -43,9 +44,9 @@ export function ApiIndex() {
             }
             { !loading && apis && Array.isArray(apis) && apis.map(api => {
                 return (
-                  <TableRow>
+                  <TableRow key={`apis-index-table-${api.id}`}>
                     <TableCell align="center">{api.id}</TableCell>
-                    <TableCell align="center">{api.name}</TableCell>
+                    <TableCell align="center">{api.title}</TableCell>
                     <TableCell align="center">{api.version}</TableCell>
                     <TableCell align="center">{api.endPoint}</TableCell>
                     <TableCell align="center">{api.operations.length}</TableCell>
@@ -68,7 +69,7 @@ export function ApiIndex() {
       </Box>
       <Grid container direction="column" justify="flex-end" alignItems="flex-end">
         <Grid item>
-          <Button variant="outlined" color="primary" onClick={() => history.push("/apis/new")}>
+          <Button variant="outlined" color="primary" component={Link} to='/apis/new'>
             신규 API 추가
           </Button>
         </Grid>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Grid, FormControl, InputLabel, Input, FormHelperText, Box, TextField, Button } from '@material-ui/core';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { apiActions } from '../../actions/apiActions';
 
 const useStyles = makeStyles((theme) => ({
 }))
@@ -8,7 +10,10 @@ const useStyles = makeStyles((theme) => ({
 export function New() {
   const theme = useTheme();
   const classes = useStyles(theme);
-  
+  const dispatch = useDispatch();
+
+  const loading = useSelector(state => state.apis.loading);
+
   const initialForm = {
     title: "",
     nameSpace: "",
@@ -24,6 +29,10 @@ export function New() {
       ...form,
       [e.target.name]: e.target.value
     });
+  }
+
+  const onSaveButtonClick = (e) => {
+    dispatch(apiActions.postNewApi(form));
   }
   return (
     <Container maxWidth='md'>
@@ -70,7 +79,7 @@ export function New() {
         </FormControl>
       </Box>
       <Box mt={2} textAlign="right">
-        <Button variant="contained" color="primary">저장</Button>
+        <Button disabled={loading} variant="contained" color="primary" onClick={onSaveButtonClick}>저장</Button>
       </Box>
     </Container>
   )
