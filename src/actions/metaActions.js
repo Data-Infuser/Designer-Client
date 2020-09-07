@@ -13,7 +13,7 @@ function postMetaUpload(form) {
     interval = setInterval(() => {
       dispatch(success(form));
       history.push("/metas/1")
-    }, 1500)
+    }, 300)
   }
 
   function request() { return { type: metaConstants.POST } }

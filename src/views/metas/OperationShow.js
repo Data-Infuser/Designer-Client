@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Box, FormControl, InputLabel, Input, TextField, FormHelperText, Button, Select, MenuItem } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 export function OperationShow() {
+
+  const history = useHistory();
 
   const initialForm = {
     title: "",
@@ -20,7 +23,7 @@ export function OperationShow() {
   }
 
   const onSaveButtonClick = (e) => {
-
+    history.push("/apis/1")
   }
 
   return (

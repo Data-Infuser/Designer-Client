@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Button, Container, Grid, Menu, MenuItem } from '@material-ui/core'
+import { Button, Container, Grid, Menu, MenuItem, Box } from '@material-ui/core'
 import { NewMetaDialog } from './dialogs/NewMeta';
 
 export function Show() {
@@ -23,22 +23,26 @@ export function Show() {
   return (
     <Container>
       <NewMetaDialog open={newMetaOpen} setOpen={setNewMetaOpen}/>
-      <Grid container direction="row">
-        <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-          원천데이터 추가
-        </Button>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
-          <MenuItem onClick={() => handelMeneSelected("upload")}>파일 업로드</MenuItem>
-          {/* <MenuItem onClick={() => handelMeneSelected("url")}>파일 URL 등록</MenuItem>
-          <MenuItem onClick={() => handelMeneSelected("dbms")}>DBMS</MenuItem> */}
-        </Menu>
+      <Grid container direction="row" spacing={4}>
+        <Grid item>
+          <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("upload")}>
+            파일 업로드
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("upload")}>
+            파일 URL 등록
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("upload")}>
+            DBMS
+          </Button>
+        </Grid>
       </Grid>
+      <Box>
+
+      </Box>
     </Container>
   )
 }
