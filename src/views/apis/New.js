@@ -49,12 +49,12 @@ export function New() {
         </FormControl>
       </Box>
       <Box mt={2}>
-      <FormControl className={classes.formContorrl} fullWidth={true}>
-        <InputLabel width="100%" htmlFor="namespace-input">호출 주소 prefix</InputLabel>
-        <Input id="namespace-input" aria-describedby="namespace-helper-text" name="nameSpace" value={form.nameSpace} onChange={handleChange}/>
-        <FormHelperText id="namespace-helper-text">* 활용자가 API 호출시 사용하게 되는 URL 주소 정보의 일부가 됩니다. 기관 또는 API의 성향을 나타낼 수 있는 명칭을 작성해주세요.</FormHelperText>
-        <FormHelperText id="namespace-helper-text">* 영문 또는 숫자로 기입 가능하며, 특수문자 _ 까지 사용 가능합니다. (띄어쓰기를 포함한 그 외의 문자 입력 불가)</FormHelperText>
-      </FormControl>  
+        <FormControl className={classes.formContorrl} fullWidth={true}>
+          <InputLabel width="100%" htmlFor="namespace-input">호출 주소 prefix</InputLabel>
+          <Input id="namespace-input" aria-describedby="namespace-helper-text" name="nameSpace" value={form.nameSpace} onChange={handleChange}/>
+          <FormHelperText id="namespace-helper-text">* 활용자가 API 호출시 사용하게 되는 URL 주소 정보의 일부가 됩니다. 기관 또는 API의 성향을 나타낼 수 있는 명칭을 작성해주세요.</FormHelperText>
+          <FormHelperText id="namespace-helper-text">* 영문 또는 숫자로 기입 가능하며, 특수문자 _ 까지 사용 가능합니다. (띄어쓰기를 포함한 그 외의 문자 입력 불가)</FormHelperText>
+        </FormControl>  
       </Box>
       <Box mt={2}>
         <FormControl className={classes.formContorrl} fullWidth={true}>
