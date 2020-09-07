@@ -5,7 +5,8 @@ import { history } from '../utils/history';
 
 export const apiActions = {
   getIndex,
-  postNewApi
+  postNewApi,
+  getApi
 }
 
 function getIndex() {
@@ -39,4 +40,10 @@ function postNewApi(form) {
     return { type: apiConstants.POST_SUCCESS, form } 
   }
   function failure() { return { type: apiConstants.POST_FAIL}}
+}
+
+function getApi(id) {
+  function request() { return { type: apiConstants.GET } }
+  function success() { return { type: apiConstants.GET_SUCCESS } }
+  function fail() { return { type: apiConstants.GET_FAIL}}
 }

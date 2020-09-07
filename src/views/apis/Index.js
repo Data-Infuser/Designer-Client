@@ -54,7 +54,7 @@ export function ApiIndex() {
                     <TableCell align="center">{api.lastCalledAt}</TableCell>
                     <TableCell align="center">{api.deployedAt}</TableCell>
                     <TableCell>
-                      <Button variant="outlined" size="small" color="primary" component={Link} to={`/apis/${api.id}`}>API 관리</Button>
+                      <Button variant="outlined" size="small" color="primary" component={Link} to={{ pathname: `/apis/${api.id}`, state: {api: api}}}>API 관리</Button>
                       <Button variant="outlined" size="small" color="secondary">버전 관리</Button>
                     </TableCell>
                   </TableRow>
