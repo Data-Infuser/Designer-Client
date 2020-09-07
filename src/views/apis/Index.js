@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
-import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button } from '@material-ui/core';
+import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button, Grid } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
 import { apiActions } from '../../actions/apiActions';
+import { history } from '../../utils/history';
+
+
 
 export function ApiIndex() {
   const apis = useSelector(state => state.apis.items);
@@ -63,6 +66,13 @@ export function ApiIndex() {
       <Box mt={4} alignItems="center" flexWrap="wrap" style={{textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
         <Pagination count={100}  showFirstButton showLastButton variant="outlined" shape="rounded" size="large" page={Number(1)}/>
       </Box>
+      <Grid container direction="column" justify="flex-end" alignItems="flex-end">
+        <Grid item>
+          <Button variant="outlined" color="primary" onClick={() => history.push("/apis/new")}>
+            신규 API 추가
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   )
 }
