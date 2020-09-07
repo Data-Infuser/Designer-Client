@@ -4,6 +4,7 @@ import { Layout } from './Layout';
 import { Route, Switch } from 'react-router-dom';
 import { ApiIndex } from './apis/Index';
 import { New } from './apis/New';
+import { ApisRoute } from './apis/Routes';
 
 export function Main(props) {
 
@@ -11,8 +12,7 @@ export function Main(props) {
     <Layout>
       <Route exact path={props.match.path} component={Home} />
       <Switch>
-        <Route path={`/apis/new`} component={New}/>
-        <Route path={`/apis`} component={ApiIndex}/>
+        <Route path={`/apis`} component={ApisRoute}/>
       </Switch>
     </Layout>
   )

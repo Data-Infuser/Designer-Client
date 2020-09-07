@@ -62,7 +62,6 @@ const dummyApis = [{
   lastCalledAt: "2020-07-21 19:00",
   deployedAt: "2020-03-14 03:23"
 }]
-let index = 7;
 
 export function apis(state = {
   loading: false,
