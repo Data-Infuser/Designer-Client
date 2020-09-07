@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Grid, Box, FormControl, Input, InputLabel, Button, FormHelperText, DialogActions, DialogContent } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { metaActions } from '../../../actions';
 
 export function FileUploadForm(props) {
   const dispatch = useDispatch();
-
+  const loading = useSelector(state => state.metas.loading);
   const initialFileForm = {
     serviceId: 1,
     title: "",
@@ -15,6 +16,10 @@ export function FileUploadForm(props) {
   }
 
   const [fileForm, setFileForm] = useState(initialFileForm);
+
+  useEffect(() => {
+    setFileForm(initialFileForm);
+  }, [])
 
   const handleFileFormChange = (e) => {
     setFileForm({
@@ -32,9 +37,12 @@ export function FileUploadForm(props) {
     })
   }
 
-  const onButtonClick = () => {
+  const onCloseButtonClick = () => {
     props.handleClose();
-    setFileForm(initialFileForm);
+  }
+
+  const onSaveButtonClick = () => {
+    dispatch(metaActions.postMetaUpload(fileForm));
   }
 
   return (
@@ -98,10 +106,10 @@ export function FileUploadForm(props) {
         </Container>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onButtonClick} variant="contained" color="secondary">
+        <Button disabled={loading} onClick={onCloseButtonClick} variant="contained" color="secondary">
           닫기
         </Button>
-        <Button onClick={onButtonClick} variant="contained" color="primary" autoFocus>
+        <Button disabled={loading} onClick={onSaveButtonClick} variant="contained" color="primary" autoFocus>
           저장
         </Button>
       </DialogActions>
