@@ -23,7 +23,7 @@ export function OperationShow() {
   }
 
   const onSaveButtonClick = (e) => {
-    history.push("/apis/1")
+    history.push({pathname: "/apis/1", state: {} }) 
   }
 
   return (

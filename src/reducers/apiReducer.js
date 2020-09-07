@@ -109,6 +109,14 @@ export function apis(state = {
         }
         draft.items.push(newObj);
       })
+    case apiConstants.GET:
+      return produce(state, draft => {
+        draft.loading = true;
+      })
+    case apiConstants.GET_SUCCESS:
+      return produce(state, draft => {
+        draft.loading = false;
+      })
     default:
       return state
   }

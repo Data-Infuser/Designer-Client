@@ -11,7 +11,7 @@ export function Show(props) {
   const [dataType, setDataType] = useState();
 
   const { id } = useParams();
-  const api = props.location.state.api;
+  let api = props.location.state ? props.location.state.api : null;
   
   useEffect(() => {
     if(!api) { dispatch(apiActions.getApi(id)); }
@@ -26,6 +26,9 @@ export function Show(props) {
     <Container>
       <Box>
         <NewMetaDialog api={api} open={newMetaOpen} setOpen={setNewMetaOpen}/>
+        { api &&
+          <Box>{api.id}</Box>
+        }
         <Grid container direction="row" spacing={4}>
           <Grid item>
             <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("upload")}>

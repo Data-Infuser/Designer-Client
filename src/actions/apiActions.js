@@ -15,7 +15,7 @@ function getIndex() {
     dispatch(request());
     interval = setInterval(() => {
       dispatch(success());
-    }, 1500)
+    }, 500)
   }
 
   function request() { return { type: apiConstants.INDEX } }
@@ -31,7 +31,7 @@ function postNewApi(form) {
     dispatch(request());
     interval = setInterval(() => {
       dispatch(success(form));
-    }, 1500)
+    }, 500)
   }
 
   function request() { return { type: apiConstants.POST } }
@@ -43,7 +43,17 @@ function postNewApi(form) {
 }
 
 function getApi(id) {
+  let interval;
+  return dispatch => {
+    dispatch(request());
+    interval = setInterval(() => {
+      dispatch(success(id));
+    }, 500)
+  }
   function request() { return { type: apiConstants.GET } }
-  function success() { return { type: apiConstants.GET_SUCCESS } }
+  function success() { 
+    clearInterval(interval);
+    return { type: apiConstants.GET_SUCCESS } 
+  }
   function fail() { return { type: apiConstants.GET_FAIL}}
 }

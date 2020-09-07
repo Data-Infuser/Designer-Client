@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
-import { ApiIndex } from './Index';
-import { New } from './New';
-import { Show } from './Show';
+import { ApiIndex } from '../views/apis/Index';
+import { New } from '../views/apis/New';
+import { Show } from '../views/apis/Show';
 
 export function ApisRoute(props) {
   return (

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Box } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
-import { MetaShow } from './Show';
-import { OperationShow } from './OperationShow';
+import { MetaShow } from '../views/metas/Show';
+import { OperationShow } from '../views/metas/OperationShow';
 
-export function MetasRoute(props) {
+export function MetaRoute(props) {
   return (
     <Box>
       <Switch>
