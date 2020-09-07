@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ApiIndex } from './apis/Index';
 import { New } from './apis/New';
 import { ApisRoute } from './apis/Routes';
+import { MetasRoute } from './metas/Routes';
 
 export function Main(props) {
 
@@ -13,6 +14,7 @@ export function Main(props) {
       <Route exact path={props.match.path} component={Home} />
       <Switch>
         <Route path={`/apis`} component={ApisRoute}/>
+        <Route path={`/metas`} component={MetasRoute}/>
       </Switch>
     </Layout>
   )
