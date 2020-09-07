@@ -26,9 +26,6 @@ export function Show(props) {
     <Container>
       <Box>
         <NewMetaDialog api={api} open={newMetaOpen} setOpen={setNewMetaOpen}/>
-        { api &&
-          <Box>{api.id}</Box>
-        }
         <Grid container direction="row" spacing={4}>
           <Grid item>
             <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("upload")}>

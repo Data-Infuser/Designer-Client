@@ -17,8 +17,8 @@ export function MetaShow() {
       originalColumnName: "BIZRNO",
       columnName: "BIZRNO",
       type: "int",
-      length: null,
-      format: null,
+      length: undefined,
+      format: undefined,
       nullable: false,
       searchParams: []
     },
@@ -27,8 +27,8 @@ export function MetaShow() {
       originalColumnName: "CORP_NM",
       columnName: "CORP_NM",
       type: "varchar",
-      length: null,
-      format: null,
+      length: undefined,
+      format: undefined,
       nullable: false,
       searchParams: []
     },
@@ -37,8 +37,8 @@ export function MetaShow() {
       originalColumnName: "RPPR_NM",
       columnName: "RPPR_NM",
       type: "varchar",
-      length: null,
-      format: null,
+      length: undefined,
+      format: undefined,
       nullable: false,
       searchParams: []
     },
@@ -47,8 +47,8 @@ export function MetaShow() {
       originalColumnName: "ADDR",
       columnName: "ADDR",
       type: "text",
-      length: null,
-      format: null,
+      length: undefined,
+      format: undefined,
       nullable: false,
       searchParams: []
     },
@@ -57,8 +57,8 @@ export function MetaShow() {
       originalColumnName: "TELNO",
       columnName: "TELNO",
       type: "varchar",
-      length: null,
-      format: null,
+      length: undefined,
+      format: undefined,
       nullable: false,
       searchParams: []
     },
@@ -67,8 +67,8 @@ export function MetaShow() {
       originalColumnName: "RMK_TXT",
       columnName: "RMK_TXT",
       type: "int",
-      length: null,
-      format: null,
+      length: undefined,
+      format: undefined,
       nullable: false,
       searchParams: []
     }
@@ -128,36 +128,36 @@ export function MetaShow() {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell textAlign="center">원본 컬럼명</TableCell>
-                <TableCell textAlign="center">활용자 제공 컬럼명</TableCell>
-                <TableCell textAlign="center">컬럼 타입</TableCell>
-                <TableCell textAlign="center">최대 길이</TableCell>
-                <TableCell textAlign="center">날짜 형식</TableCell>
-                <TableCell textAlign="center">빈값 허용</TableCell>
-                <TableCell textAlign="center">검색 설정</TableCell>
+                <TableCell align="center">원본 컬럼명</TableCell>
+                <TableCell align="center">활용자 제공 컬럼명</TableCell>
+                <TableCell align="center">컬럼 타입</TableCell>
+                <TableCell align="center">최대 길이</TableCell>
+                <TableCell align="center">날짜 형식</TableCell>
+                <TableCell align="center">빈값 허용</TableCell>
+                <TableCell align="center">검색 설정</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {sampleMetas.map(row => {
                 return(
                   <TableRow key={`meta-sample-meta-row-${row.id}`}>
-                    <TableCell textAlign="center">{row.originalColumnName}</TableCell>
-                    <TableCell textAlign="center">
+                    <TableCell align="center">{row.originalColumnName}</TableCell>
+                    <TableCell align="center">
                       <Input id={`meta-${row.id}-input-columnName`} value={row.columnName} onChange={handleChange}/>
                     </TableCell>
-                    <TableCell textAlign="center">
+                    <TableCell align="center">
                       <Input id={`meta-${row.id}-input-type`} value={row.type} onChange={handleChange}/>
                     </TableCell>
-                    <TableCell textAlign="center">
+                    <TableCell align="center">
                       <Input id={`meta-${row.id}-input-length`} value={row.length} onChange={handleChange}/>
                     </TableCell>
-                    <TableCell textAlign="center">
+                    <TableCell align="center">
                       <Input id={`meta-${row.id}-input-format`} value={row.format} onChange={handleChange} disabled={row.type !== 'date'}/>
                     </TableCell>
-                    <TableCell textAlign="center">
+                    <TableCell align="center">
                       <Checkbox id={`meta-${row.id}-input-nullable`} checked={row.nullable} onChange={handleChange} color="primary"/>
                     </TableCell>
-                    <TableCell textAlign="center">검색조건</TableCell>
+                    <TableCell align="center">검색조건</TableCell>
                   </TableRow>
                 )
               })}

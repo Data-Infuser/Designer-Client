@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Box, FormControl, Input, InputLabel, Button, FormHelperText, DialogActions, DialogContent } from '@material-ui/core';
+import { Container, Grid, Box, FormControl, Input, InputLabel, Button, FormHelperText, DialogActions, DialogContent, Snackbar } from '@material-ui/core';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { metaActions } from '../../../actions';
+import { Alert } from '@material-ui/lab';
 
 export function FileUploadForm(props) {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.metas.loading);
+  const api = props.api;
   const initialFileForm = {
-    serviceId: 1,
+    apiId: api.id,
+    type: "file",
     title: "",
     skip: 0,
     sheet: 0,
@@ -16,6 +19,7 @@ export function FileUploadForm(props) {
   }
 
   const [fileForm, setFileForm] = useState(initialFileForm);
+  const [message, setMessage] = useState();
 
   useEffect(() => {
     setFileForm(initialFileForm);
@@ -32,7 +36,6 @@ export function FileUploadForm(props) {
     const file = files.length > 0 ? files[0] : undefined
     setFileForm({
       ...fileForm,
-      serviceId: 1,
       file: file
     })
   }
@@ -42,6 +45,10 @@ export function FileUploadForm(props) {
   }
 
   const onSaveButtonClick = () => {
+    if(fileForm.title.length < 6) {
+      setMessage("제목은 6자 이상이어야 합니다.");
+      return;
+    }
     dispatch(metaActions.postMetaUpload(fileForm));
   }
 
@@ -49,6 +56,9 @@ export function FileUploadForm(props) {
     <Box>
       <DialogContent>
         <Container maxWidth="lg">
+          { message &&
+            <Alert severity="error">{message}</Alert>
+          }
           { !fileForm.file &&
             <Grid item xs={12} >
               <Box width="auto">
@@ -79,7 +89,7 @@ export function FileUploadForm(props) {
           <Grid item xs={12}>
             <Box width="auto">
               <FormControl fullWidth={true}>
-                <InputLabel width="100%" htmlFor="title-input">Title</InputLabel>
+                <InputLabel width="100%" htmlFor="title-input">제목</InputLabel>
                 <Input id="title-input" aria-describedby="title-helper-text" name="title" value={fileForm.title} onChange={handleFileFormChange}/>
                 <FormHelperText id="title-helper-text">데이터명을 입력해주세요. 목록표시를 위해 사용됩니다.</FormHelperText>
               </FormControl>

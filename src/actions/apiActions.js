@@ -55,5 +55,5 @@ function getApi(id) {
     clearInterval(interval);
     return { type: apiConstants.GET_SUCCESS } 
   }
-  function fail() { return { type: apiConstants.GET_FAIL}}
+  function failure() { return { type: apiConstants.GET_FAIL}}
 }

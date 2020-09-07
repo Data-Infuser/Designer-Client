@@ -4,7 +4,7 @@ import { FileUploadForm } from './_fileUploadForm';
 
 export function NewMetaDialog(props) {
   const open = props.open;
-  
+  const api = props.api;
   const handleClose = (e) => {
     props.setOpen(false);
   }
@@ -20,7 +20,7 @@ export function NewMetaDialog(props) {
       disableBackdropClick={true}
       fullWidth={true}
     >
-      <FileUploadForm handleClose={handleClose}/>
+      <FileUploadForm api={api} handleClose={handleClose}/>
     </Dialog>
   );
 }
