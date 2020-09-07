@@ -66,7 +66,8 @@ let index = 7;
 
 export function apis(state = {
   loading: false,
-  items: []
+  items: [],
+  lastIndex: 7
 }, action) {
   switch (action.type) {
     case apiConstants.INDEX:
@@ -94,7 +95,7 @@ export function apis(state = {
           draft.items = dummyApis;
         }
         draft.loading = false;
-        const newId = index++;
+        const newId = draft.lastIndex++;
         const form = action.form
         const newObj = {
           id: newId,
@@ -107,7 +108,6 @@ export function apis(state = {
           version: 'v1'
         }
         draft.items.push(newObj);
-        //history.push("/apis")
       })
     default:
       return state

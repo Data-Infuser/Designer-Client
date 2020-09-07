@@ -3,6 +3,7 @@ import { Container, Grid, FormControl, InputLabel, Input, FormHelperText, Box, T
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiActions } from '../../actions/apiActions';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 }))
@@ -11,6 +12,7 @@ export function New() {
   const theme = useTheme();
   const classes = useStyles(theme);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const loading = useSelector(state => state.apis.loading);
 
@@ -33,6 +35,7 @@ export function New() {
 
   const onSaveButtonClick = (e) => {
     dispatch(apiActions.postNewApi(form));
+    history.push("/apis")
   }
   return (
     <Container maxWidth='md'>
