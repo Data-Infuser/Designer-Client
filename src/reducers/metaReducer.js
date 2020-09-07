@@ -2,7 +2,7 @@ import { metaConstants } from '../constants';
 import produce from 'immer';
 
 export function metas(state = {
-  loading: true
+  loading: false
 }, action) {
   switch (action.type) {
     case metaConstants.POST:
