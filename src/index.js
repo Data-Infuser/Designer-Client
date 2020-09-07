@@ -26,7 +26,7 @@ const theme = createMuiTheme({
     ].join(','),
     fontSize: 14
   },
-  spacing: 4,
+  spacing: 8,
   overrides:{}
 })
 
