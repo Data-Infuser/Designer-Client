@@ -16,7 +16,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
-export default() => {
+const store = () => {
   let store = createStore(
     persistedReducer,
     applyMiddleware(
@@ -29,3 +29,6 @@ export default() => {
 
   return { store, persistor }
 }
+
+const storeObj = store();
+export default storeObj;

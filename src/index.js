@@ -31,8 +31,8 @@ const theme = createMuiTheme({
 })
 
 ReactDOM.render(
-  <Provider store={store().store}>
-    <PersistGate loading={null} persistor={store().persistor}>
+  <Provider store={store.store}>
+    <PersistGate loading={null} persistor={store.persistor}>
       <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
