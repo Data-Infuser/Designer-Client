@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Container, Box, FormControl, InputLabel, Input, TextField, FormHelperText, Button, Select, MenuItem } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-export function OperationShow() {
+export function OperationShow(props) {
+  const apis = useSelector(state => state.apis.items);
+  let meta = props.location.state ? props.location.state.meta : null;
 
   const history = useHistory();
-
   const initialForm = {
     title: "",
     description: "",
@@ -23,7 +25,7 @@ export function OperationShow() {
   }
 
   const onSaveButtonClick = (e) => {
-    history.push({pathname: "/apis/1", state: {} }) 
+    history.push({pathname: `/apis/${meta.apiId}`, state: {api: apis.find(el => el.id == meta.apiId)} }) 
   }
 
   return (
