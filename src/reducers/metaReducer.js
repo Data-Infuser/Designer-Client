@@ -14,10 +14,8 @@ export function metas(state = {
     case metaConstants.POST_SUCCESS:
       return produce(state, draft => {
         draft.loading = false;
-        draft.items.push({
-          ...action.form,
-          id: draft.lastIndex++
-        })
+        draft.items.push(action.meta);
+        draft.lastIndex = action.meta.id + 1;
       })
     case metaConstants.POST_FAIL:
       return produce(state, draft => {
