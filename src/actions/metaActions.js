@@ -1,7 +1,6 @@
 
 import { metaConstants } from '../constants/metaConstants';
 import { history } from '../utils/history';
-import { useSelector } from 'react-redux';
 import store from '../utils/store';
 
 export const metaActions = {
