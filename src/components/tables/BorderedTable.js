@@ -9,6 +9,7 @@ import {
   TableBody,
   Table,
 } from "@material-ui/core";
+
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +28,11 @@ export default function BorderedTable(props) {
           <TableHead>
             <TableRow>
               {props.headers.map((header) => {
-                return <TableCell className={classes.borderedCell}>{header}</TableCell>;
+                return (
+                  <TableCell key={`table-header-cell-${header}`} className={classes.borderedCell}>
+                    {header}
+                  </TableCell>
+                );
               })}
             </TableRow>
           </TableHead>
