@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Box, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Table, Button, Input, Checkbox } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { PageTitle } from 'components/typos/PageTitle';
+import { PageTitle, SubTitle } from 'components/typos/Title';
 
 export function MetaShow(props) {
   const { id } = useParams();
@@ -27,7 +27,7 @@ export function MetaShow(props) {
         <Box>
           <Box p={4}>
             <Box textAlign="left">
-              <h3>Sample Data 상위 5건</h3>
+              <SubTitle text="Sample Data 상위 5건" />
             </Box>
             <TableContainer component={Paper}>
               <Table>
