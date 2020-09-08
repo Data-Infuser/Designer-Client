@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Box, TableContainer, TableHead, TableRow, TableCell, TableBody, Paper, Table, Button, Input, Checkbox } from '@material-ui/core';
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { PageTitle } from 'components/typos/PageTitle';
 
 export function MetaShow(props) {
   const { id } = useParams();
@@ -20,7 +21,7 @@ export function MetaShow(props) {
   return (
     <Container>
       <Box textAlign="left">
-        <h2>데이터셋 Meta</h2>
+        <PageTitle text="데이터셋 Meta" />
       </Box>
       {meta &&
         <Box>
