@@ -3,6 +3,7 @@ import { Container, Box, TableContainer, TableHead, TableRow, TableCell, TableBo
 import { useParams, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { PageTitle, SubTitle } from 'components/typos/Title';
+import BorderedTable from 'components/tables/BorderedTable';
 
 export function MetaShow(props) {
   const { id } = useParams();
@@ -20,43 +21,19 @@ export function MetaShow(props) {
 
   return (
     <Container>
-      <Box textAlign="left">
-        <PageTitle text="데이터셋 Meta" />
-      </Box>
+      <PageTitle text="데이터셋 Meta" />
+      
       {meta &&
         <Box>
-          <Box p={4}>
+          <Box>
             <Box textAlign="left">
-              <SubTitle text="Sample Data 상위 5건" />
+              <SubTitle text="데이터 예시" smallText="상위 5건의 원본 데이터를 출력합니다." />
             </Box>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>BIZRNO</TableCell>
-                    <TableCell>CORP_NM</TableCell>
-                    <TableCell>RPPR_NM</TableCell>
-                    <TableCell>ADDR</TableCell>
-                    <TableCell>TELNO</TableCell>
-                    <TableCell>RMK_TXT</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {JSON.parse(meta.samples).items.map(row => {
-                    return (
-                      <TableRow key={`meta-sample-row-${row[0]}`}>
-                        <TableCell>{row[0]}</TableCell>
-                        <TableCell>{row[1]}</TableCell>
-                        <TableCell>{row[2]}</TableCell>
-                        <TableCell>{row[3]}</TableCell>
-                        <TableCell>{row[4]}</TableCell>
-                        <TableCell>{row[5]}</TableCell>
-                      </TableRow>
-                    )
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
+            <BorderedTable
+              container={Paper}
+              size="small"
+              headers={['BIZRNO', 'CORP_NM', 'RPPR_NM', 'ADDR', 'TELNO', 'RMK_TXT']}
+              rows={JSON.parse(meta.samples).items} />
           </Box>
           <Box>
             <Box textAlign="left">
