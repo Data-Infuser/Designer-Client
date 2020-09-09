@@ -25,7 +25,7 @@ export function Show(props) {
   return (
     <Container>
       <Box>
-        <NewMetaDialog api={api} open={newMetaOpen} setOpen={setNewMetaOpen}/>
+        <NewMetaDialog dataType={dataType} api={api} open={newMetaOpen} setOpen={setNewMetaOpen}/>
         <Grid container direction="row" spacing={4}>
           <Grid item>
             <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("upload")}>
@@ -33,12 +33,12 @@ export function Show(props) {
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("upload")}>
+            <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("url")}>
               파일 URL 등록
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("upload")}>
+            <Button variant="contained" color="primary" aria-controls="simple-menu" aria-haspopup="true" onClick={() => handelMeneSelected("dbms")}>
               DBMS
             </Button>
           </Grid>
