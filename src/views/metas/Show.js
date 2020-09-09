@@ -14,6 +14,7 @@ import {
   Checkbox,
   Select,
   MenuItem,
+  Typography,
 } from "@material-ui/core";
 import { display } from "@material-ui/system";
 import { useParams, useHistory } from "react-router-dom";
@@ -23,6 +24,7 @@ import { PageTitle, SubTitle } from "components/typos/Title";
 import BorderedTable from "components/tables/BorderedTable";
 
 import HelpIcon from '@material-ui/icons/Help';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const xsWidth = 767;
 
@@ -30,7 +32,7 @@ const formHeaders = [
   { key: "formHeader1", name: "원본 컬럼명" },
   {
     key: "formHeader2",
-    name: "활용자 제공 컬럼명",
+    name: "제공 컬럼명",
     tooltip: "활용자에게 제공되는 컬럼 명칭입니다.",
   },
   { key: "formHeader3", name: "컬럼 타입" },
@@ -56,8 +58,15 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#fff",
     borderRight: "solid 1px #ddd",
     borderBottom: "solid 1px #ddd",
+    "&.text": {
+      display: "flex",
+      alignItems: "center",
+    },
     "&.header": {
       textAlign: "center",
+    },
+    "& .form": {
+      fontSize: "0.875rem",
     },
   },
   formControl: {
@@ -188,7 +197,7 @@ export function MetaShow(props) {
                     className={classes.flexTable}
                     key={`meta-sample-meta-row-${row.id}`}
                   >
-                    <div className={classes.flexRow}>
+                    <div className={`${classes.flexRow} text`}>
                       {row.originalColumnName}
                     </div>
                     <div className={classes.flexRow}>
@@ -279,12 +288,18 @@ export function MetaShow(props) {
                             color="primary"
                           />
                         }
-                        label="빈값 허용"
+                        label={<Typography style={{fontSize: "0.875rem"}}>빈값 허용</Typography>}
                       />
                     </div>
                     <div className={`${classes.flexRow} last`}>
                       <FormControl className={classes.formControl}>
-                        검색조건
+                        <Button
+                          variant="outlined"
+                          startIcon={<SettingsIcon />}
+                          >
+                          검색조건
+                        </Button>
+                        
                       </FormControl>
                     </div>
                   </div>
