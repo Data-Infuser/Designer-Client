@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Box,
@@ -108,11 +108,19 @@ export function MetaShow(props) {
   const { id } = useParams();
   const metas = useSelector((state) => state.metas.items);
   const meta = metas.find((el) => el.id == id);
+  const [cols, setCols] = useState(meta.columns);
+
   const history = useHistory();
 
   const classes = useStyles();
 
-  const handleChange = (e) => {};
+  const handleChange = idx => (e) => {
+    console.log(e.target.name, e.target.value);
+    let newCols = [...cols];
+    newCols[idx][e.target.name] = e.target.value;
+
+    setCols(newCols)
+  };
 
   const getType = (val) => {
     switch (val) {
@@ -191,27 +199,29 @@ export function MetaShow(props) {
                 })}
               </div>
 
-              {meta.columns.map((row) => {
+              {cols.map((col, idx) => {
                 return (
                   <div
                     className={classes.flexTable}
-                    key={`meta-sample-meta-row-${row.id}`}
+                    key={`meta-sample-meta-row-${col.id}`}
                   >
                     <div className={`${classes.flexRow} text`}>
-                      {row.originalColumnName}
+                      {col.originalColumnName}
                     </div>
                     <div className={classes.flexRow}>
                       <FormControl className={classes.formControl}>
                         <InputLabel
-                          htmlFor={`meta-${row.id}-input-columnName`}
+                          htmlFor={`meta-${col.id}-input-columnName`}
                           className="label"
                         >
                           {formHeaders[1].name}
                         </InputLabel>
                         <Input
-                          id={`meta-${row.id}-input-columnName`}
+                          id={`meta-${col.id}-input-columnName`}
                           className="form"
-                          value={row.columnName}
+                          name="columnName"
+                          value={col.columnName}
+                          onChange={handleChange(idx)}
                         />
                         <FormHelperText className="helpText">
                           {formHeaders[1].tooltip}
@@ -221,17 +231,18 @@ export function MetaShow(props) {
                     <div className={classes.flexRow}>
                       <FormControl className={classes.formControl}>
                         <InputLabel
-                          id={`label-meta-${row.id}-input-type`}
+                          id={`label-meta-${col.id}-input-type`}
                           className="label"
                         >
                           {formHeaders[2].name}
                         </InputLabel>
                         <Select
-                          labelId={`label-meta-${row.id}-input-type`}
-                          id={`meta-${row.id}-input-type`}
-                          value={getType(row.type)}
+                          labelId={`label-meta-${col.id}-input-type`}
+                          id={`meta-${col.id}-input-type`}
+                          name="type"
+                          value={getType(col.type)}
                           className="form"
-                          onChange={handleChange}
+                          onChange={handleChange(idx)}
                         >
                           <MenuItem value={"int"}>숫자(정수)</MenuItem>
                           <MenuItem value={"double"}>숫자(부동소수)</MenuItem>
@@ -245,33 +256,35 @@ export function MetaShow(props) {
                     <div className={classes.flexRow}>
                       <FormControl className={classes.formControl}>
                         <InputLabel
-                          htmlFor={`meta-${row.id}-input-length`}
+                          htmlFor={`meta-${col.id}-input-length`}
                           className="label"
                         >
                           {formHeaders[3].name}
                         </InputLabel>
                         <Input
-                          id={`meta-${row.id}-input-length`}
-                          value={row.length}
+                          id={`meta-${col.id}-input-length`}
+                          value={col.length}
+                          name="length"
                           className="form"
-                          onChange={handleChange}
+                          onChange={handleChange(idx)}
                         />
                       </FormControl>
                     </div>
                     <div className={classes.flexRow}>
                       <FormControl className={classes.formControl}>
                         <InputLabel
-                          htmlFor={`meta-${row.id}-input-format`}
+                          htmlFor={`meta-${col.id}-input-format`}
                           className="label"
                         >
                           {formHeaders[4].name}
                         </InputLabel>
                         <Input
-                          id={`meta-${row.id}-input-format`}
-                          value={row.format}
+                          id={`meta-${col.id}-input-format`}
+                          value={col.format}
+                          name="format"
                           className="form"
-                          onChange={handleChange}
-                          disabled={row.type !== "date"}
+                          onChange={handleChange(idx)}
+                          disabled={col.type !== "date"}
                         />
                         <FormHelperText className="helpText">
                           {formHeaders[4].tooltip}
@@ -282,9 +295,10 @@ export function MetaShow(props) {
                       <FormControlLabel
                         control={
                           <Checkbox
-                            id={`meta-${row.id}-input-nullable`}
-                            checked={row.nullable}
-                            onChange={handleChange}
+                            id={`meta-${col.id}-input-nullable`}
+                            checked={col.nullable}
+                            name="nullable"
+                            onChange={handleChange(idx)}
                             color="primary"
                           />
                         }
