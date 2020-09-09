@@ -1,0 +1,5 @@
+export const operationConstants = {
+  POST: 'OPERATION_POST',
+  POST_SUCCESS: 'OPERATION_POST_SUCCESS',
+  POST_FAIL: 'OPERATION_POST_FAIL'
+}

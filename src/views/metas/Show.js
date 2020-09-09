@@ -16,7 +16,7 @@ export function MetaShow(props) {
   }
 
   const onButtonClick = (e) => {
-    history.push({ pathname: `/metas/${meta.id}/service`, state: {meta: meta}})
+    history.push({ pathname: `/metas/${meta.id}/operation/new`, state: {meta: meta}})
   }
 
   return (

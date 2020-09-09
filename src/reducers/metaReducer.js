@@ -22,6 +22,11 @@ export function metas(state = {
       return produce(state, draft => {
         draft.loading = false;
       })
+    case metaConstants.ADD_OPERATION:
+      return produce(state, draft => {
+        const meta = draft.items.find(el => el.id == action.metaId);
+        meta["operation"] = action.operation;
+      })
     default:
       return state
   }
