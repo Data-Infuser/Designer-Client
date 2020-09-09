@@ -1,3 +1,8 @@
 .App {
   text-align: center;
 }
+
+/* 공통 하단 여백 설정 */
+.BottomGutter {
+  margin-bottom: 16px;
+}

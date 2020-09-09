@@ -25,7 +25,7 @@ export function MetaShow(props) {
       
       {meta &&
         <Box>
-          <Box>
+          <Box className="BottomGutter">
             <Box textAlign="left">
               <SubTitle text="데이터 예시" smallText="상위 5건의 원본 데이터를 출력합니다." />
             </Box>
@@ -35,12 +35,14 @@ export function MetaShow(props) {
               headers={['BIZRNO', 'CORP_NM', 'RPPR_NM', 'ADDR', 'TELNO', 'RMK_TXT']}
               rows={JSON.parse(meta.samples).items} />
           </Box>
-          <Box>
+
+          <Box className="BottomGutter">
             <Box textAlign="left">
-              <h3>데이터셋 Meta 정보</h3>
+              <SubTitle text="메타데이터 정의" smallText="원천 데이터의 컬럼 정보를 정의합니다." />
             </Box>
+            <div></div>
             <TableContainer component={Paper}>
-              <Table>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <TableCell align="center">원본 컬럼명</TableCell>
@@ -80,7 +82,7 @@ export function MetaShow(props) {
               </Table>
             </TableContainer>
           </Box>
-          <Box mt={4} textAlign="right">
+          <Box textAlign="right">
             <Button variant="contained" color="primary" onClick={onButtonClick}>
               저장
             </Button>
