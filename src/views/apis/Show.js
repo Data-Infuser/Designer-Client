@@ -4,6 +4,9 @@ import { NewMetaDialog } from './dialogs/NewMeta';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { apiActions } from '../../actions/apiActions';
+import { MetaBox } from './MetaBox';
+import SwaggerUI from 'swagger-ui-react';
+import "swagger-ui-react/swagger-ui.css";
 
 export function Show(props) {
   const dispatch = useDispatch();
@@ -12,7 +15,8 @@ export function Show(props) {
 
   const { id } = useParams();
   let api = props.location.state ? props.location.state.api : null;
-  
+  const metas = useSelector(state => state.metas.items).filter(el => el.apiId == api.id);
+  console.log(metas);
   useEffect(() => {
     if(!api) { dispatch(apiActions.getApi(id)); }
   }, [])
@@ -43,8 +47,23 @@ export function Show(props) {
             </Button>
           </Grid>
         </Grid>
-        <Box>
-  
+        <Box mt={2}>
+          <Grid container>
+            <Grid item xs={12} sm={6}>
+              <Box textAlign="left">
+                { metas && metas.map(el => {
+                  return (
+                    <MetaBox meta={el}/>
+                  )
+                })}
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Box textAlign="left">
+                <SwaggerUI url="http://rackerlabs.github.io/wadl2swagger/openstack/swagger/dbaas.json"/>
+              </Box>
+            </Grid>
+          </Grid>
         </Box>
       </Box>
     </Container>

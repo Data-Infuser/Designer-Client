@@ -4,11 +4,11 @@ import { history } from '../utils/history';
 import store from '../utils/store';
 
 export const metaActions = {
-  postMetaUpload
+  postMetaUpload,
+  addOperation
 }
 
 function postMetaUpload(form) {
-  console.log(metaFactory(form));
   let interval;
   return dispatch => {
     dispatch(request());
@@ -25,6 +25,16 @@ function postMetaUpload(form) {
     return { type: metaConstants.POST_SUCCESS, meta } 
   }
   function failure() { return { type: metaConstants.POST_FAIL}}
+}
+
+function addOperation(metaId, operation) {
+  return dispatch => {
+    dispatch({
+      type: metaConstants.ADD_OPERATION,
+      metaId,
+      operation
+    })
+  }
 }
 
 function metaFactory(form) {

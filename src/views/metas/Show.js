@@ -129,7 +129,7 @@ export function MetaShow(props) {
 
   const onButtonClick = (e) => {
     history.push({
-      pathname: `/metas/${meta.id}/service`,
+      pathname: `/metas/${meta.id}/operation/new`,
       state: { meta: meta },
     });
   };

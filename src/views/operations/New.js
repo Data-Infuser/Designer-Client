@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { Container, Box, FormControl, InputLabel, Input, TextField, FormHelperText, Button, Select, MenuItem } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { PageTitle } from 'components/typos/Title';
+import { operationActions } from '../../actions/operationActions';
 
-export function OperationShow(props) {
+export function OperationNew(props) {
   const apis = useSelector(state => state.apis.items);
   let meta = props.location.state ? props.location.state.meta : null;
+  const api = apis.find(el => el.id == meta.apiId);
+  const loading = useSelector(state => state.operations.loading);
+  const dispatch = useDispatch();
 
-  const history = useHistory();
   const initialForm = {
+    api: api,
+    metaId: meta.id,
     title: "",
     description: "",
     method: "get",
@@ -25,14 +31,12 @@ export function OperationShow(props) {
   }
 
   const onSaveButtonClick = (e) => {
-    history.push({pathname: `/apis/${meta.apiId}`, state: {api: apis.find(el => el.id == meta.apiId)} }) 
+    dispatch(operationActions.postOperation(form));
   }
 
   return (
     <Container>
-      <Box textAlign="left">
-        <h2>오퍼레이션 정의</h2>
-      </Box>
+      <PageTitle text="오퍼레이션 정의"/>
       <Box mt={2}>
         <FormControl fullWidth={true}>
           <InputLabel width="100%" htmlFor="title-input">제목</InputLabel>
@@ -75,7 +79,7 @@ export function OperationShow(props) {
         </FormControl>  
       </Box>
       <Box mt={2} textAlign="right">
-        <Button variant="contained" color="primary" onClick={onSaveButtonClick}>저장</Button>
+        <Button disabled={loading} variant="contained" color="primary" onClick={onSaveButtonClick}>저장</Button>
       </Box>
     </Container>
   )
