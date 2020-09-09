@@ -23,8 +23,10 @@ import { useSelector } from "react-redux";
 import { PageTitle, SubTitle } from "components/typos/Title";
 import BorderedTable from "components/tables/BorderedTable";
 
-import HelpIcon from '@material-ui/icons/Help';
-import SettingsIcon from '@material-ui/icons/Settings';
+import HelpIcon from "@material-ui/icons/Help";
+import SettingsIcon from "@material-ui/icons/Settings";
+
+import MetaRowForm from "./MetaRowForm";
 
 const xsWidth = 767;
 
@@ -108,38 +110,23 @@ export function MetaShow(props) {
   const { id } = useParams();
   const metas = useSelector((state) => state.metas.items);
   const meta = metas.find((el) => el.id == id);
-  const [cols, setCols] = useState(meta.columns);
+  const cols = meta.columns;
 
   const history = useHistory();
 
   const classes = useStyles();
 
-  const handleChange = idx => (e) => {
-    console.log(e.target.name, e.target.value);
-    let newCols = [...cols];
-    newCols[idx][e.target.name] = e.target.value;
-
-    setCols(newCols)
-  };
-
-  const getType = (val) => {
-    switch (val) {
-      case "int":
-        return "int";
-      case "double":
-        return "double";
-      case "varchar":
-        return "text";
-      default:
-        return "text";
-    }
+  const updateCol = (newCol) => {
+    const colIdx = cols.findIndex((el) => el.id == newCol.id);
+    cols[colIdx] = newCol;
   };
 
   const onButtonClick = (e) => {
-    history.push({
-      pathname: `/metas/${meta.id}/operation/new`,
-      state: { meta: meta },
-    });
+    console.log(cols);
+    // history.push({
+    //   pathname: `/metas/${meta.id}/operation/new`,
+    //   state: { meta: meta },
+    // });
   };
 
   return (
@@ -201,122 +188,13 @@ export function MetaShow(props) {
 
               {cols.map((col, idx) => {
                 return (
-                  <div
-                    className={classes.flexTable}
-                    key={`meta-sample-meta-row-${col.id}`}
-                  >
-                    <div className={`${classes.flexRow} text`}>
-                      {col.originalColumnName}
-                    </div>
-                    <div className={classes.flexRow}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel
-                          htmlFor={`meta-${col.id}-input-columnName`}
-                          className="label"
-                        >
-                          {formHeaders[1].name}
-                        </InputLabel>
-                        <Input
-                          id={`meta-${col.id}-input-columnName`}
-                          className="form"
-                          name="columnName"
-                          value={col.columnName}
-                          onChange={handleChange(idx)}
-                        />
-                        <FormHelperText className="helpText">
-                          {formHeaders[1].tooltip}
-                        </FormHelperText>
-                      </FormControl>
-                    </div>
-                    <div className={classes.flexRow}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel
-                          id={`label-meta-${col.id}-input-type`}
-                          className="label"
-                        >
-                          {formHeaders[2].name}
-                        </InputLabel>
-                        <Select
-                          labelId={`label-meta-${col.id}-input-type`}
-                          id={`meta-${col.id}-input-type`}
-                          name="type"
-                          value={getType(col.type)}
-                          className="form"
-                          onChange={handleChange(idx)}
-                        >
-                          <MenuItem value={"int"}>숫자(정수)</MenuItem>
-                          <MenuItem value={"double"}>숫자(부동소수)</MenuItem>
-                          <MenuItem value={"text"}>문자</MenuItem>
-                          <MenuItem value={"datetime"}>날짜(시간포함)</MenuItem>
-                          <MenuItem value={"date"}>날짜(시간 미포함)</MenuItem>
-                          <MenuItem value={"time"}>시간(시간 미포함)</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </div>
-                    <div className={classes.flexRow}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel
-                          htmlFor={`meta-${col.id}-input-length`}
-                          className="label"
-                        >
-                          {formHeaders[3].name}
-                        </InputLabel>
-                        <Input
-                          id={`meta-${col.id}-input-length`}
-                          value={col.length}
-                          name="length"
-                          className="form"
-                          onChange={handleChange(idx)}
-                        />
-                      </FormControl>
-                    </div>
-                    <div className={classes.flexRow}>
-                      <FormControl className={classes.formControl}>
-                        <InputLabel
-                          htmlFor={`meta-${col.id}-input-format`}
-                          className="label"
-                        >
-                          {formHeaders[4].name}
-                        </InputLabel>
-                        <Input
-                          id={`meta-${col.id}-input-format`}
-                          value={col.format}
-                          name="format"
-                          className="form"
-                          onChange={handleChange(idx)}
-                          disabled={col.type !== "date"}
-                        />
-                        <FormHelperText className="helpText">
-                          {formHeaders[4].tooltip}
-                        </FormHelperText>
-                      </FormControl>
-                    </div>
-                    <div className={`${classes.flexRow} last`}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            id={`meta-${col.id}-input-nullable`}
-                            checked={col.nullable}
-                            name="nullable"
-                            onChange={handleChange(idx)}
-                            color="primary"
-                          />
-                        }
-                        label={<Typography style={{fontSize: "0.875rem"}}>빈값 허용</Typography>}
-                      />
-                    </div>
-                    <div className={`${classes.flexRow} last`}>
-                      <FormControl className={classes.formControl}>
-                        <Button
-                          variant="outlined"
-                          startIcon={<SettingsIcon />}
-                          >
-                          검색조건
-                        </Button>
-                        
-                      </FormControl>
-                    </div>
-                  </div>
+                  <MetaRowForm
+                    key={`MetaRowForm${idx}`}
+                    col={col}
+                    updateCol={updateCol}
+                    formHeaders={formHeaders}
+                    classes={classes}
+                  />
                 );
               })}
             </Box>
