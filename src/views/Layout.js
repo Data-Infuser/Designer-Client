@@ -3,7 +3,6 @@ import { AppBar, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListI
 import MenuIcon from '@material-ui/icons/Menu';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import { useHistory } from 'react-router-dom';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -11,6 +10,7 @@ import clsx from 'clsx';
 import store from '../utils/store';
 import { userActions } from '../actions';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -100,6 +100,7 @@ export function Layout(props) {
   const [open, setOpen] = React.useState(true);
   const [userMenuOpen, setUserMenuOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const currentUser = useSelector(state => state.users.user);
 
   const history = useHistory();
 
@@ -125,33 +126,37 @@ export function Layout(props) {
     setOpen(false);
   };
 
-  const drawer = (
-    <Box>
-      <div className={classes.drawerHeader}>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-        </IconButton>
-      </div>
-      <Divider />
-      <List>
-        <ListItem button component={Link} to='/'>
-          <ListItemText primary="HOME"/>
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
-        <ListItem button component={Link} to='/apis'>
-          <ListItemText primary="API 관리"/>
-        </ListItem>
-        <ListItem button component={Link} to='/metas'>
-          <ListItemText primary="원천 데이터 관리"/>
-        </ListItem>
-        <ListItem button component={Link} to='/users'>
-          <ListItemText primary="담당자 관리"/>
-        </ListItem>
-      </List>
-    </Box>
-  );
+  const drawer = (props) => {
+    return (
+      <Box>
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          <ListItem button component={Link} to='/'>
+            <ListItemText primary="HOME"/>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button component={Link} to='/apis'>
+            <ListItemText primary="API 관리"/>
+          </ListItem>
+          <ListItem button component={Link} to='/metas'>
+            <ListItemText primary="원천 데이터 관리"/>
+          </ListItem>
+          { currentUser.loginId === "admin" &&
+            <ListItem button component={Link} to='/users'>
+              <ListItemText primary="담당자 관리"/>
+            </ListItem>
+          }
+        </List>
+      </Box>
+    )
+  };
 
   return (
     <div className={classes.root}>
@@ -200,7 +205,7 @@ export function Layout(props) {
           paper: classes.drawerPaper,
         }}
       >
-        {drawer}
+        {drawer(props)}
       </Drawer>
       <main className={clsx(classes.content, {
           [classes.contentShift]: open,

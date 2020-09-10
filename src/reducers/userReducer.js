@@ -19,7 +19,7 @@ export function users(state = {
         localStorage.setItem('refreshToken', user.refreshToken);
         localStorage.setItem('users', JSON.stringify(user));
         draft.loading = false;
-        draft.user = action.user;
+        draft.user = user;
       })
     case userConstants.LOGIN_FAIL:
       return produce(state, draft => {

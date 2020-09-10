@@ -5,7 +5,7 @@ import Login from '../views/Login';
 import Regist from '../views/Regist';
 import { DashboardRoute } from './DashboardRoute';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const PrivateRoute = ({ component: Component,  ...rest }) => (
   <Route {...rest} render={(props) => (
     localStorage.getItem('users')
       ? <Component {...props} />

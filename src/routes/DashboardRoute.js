@@ -14,6 +14,7 @@ export function DashboardRoute(props) {
       <Switch>
         <AuthorRoute path={`/apis`} component={ApisRoute} roles={["admin", "user"]} />
         <AuthorRoute path={`/metas`} component={MetaRoute} roles={["admin", "user"]}/>
+        <AuthorRoute path={`/users`} component={MetaRoute} roles={["admin", "user"]}/>
       </Switch>
     </Layout>
   )
