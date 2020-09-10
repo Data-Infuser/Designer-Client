@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button, Grid } from '@material-ui/core';
+import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button, Grid, Container } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
 import { apiActions } from '../../actions/apiActions';
-import { history } from '../../utils/history';
 import { Link } from 'react-router-dom';
 
 
@@ -18,7 +17,7 @@ export function ApiIndex() {
   }, [])
 
   return (
-    <Box>
+    <Container>
       <h2> API 목록 </h2>
       <TableContainer component={Paper}>
         <Table aria-label="custom pagination table">
@@ -74,7 +73,7 @@ export function ApiIndex() {
           </Button>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   )
 }
 
