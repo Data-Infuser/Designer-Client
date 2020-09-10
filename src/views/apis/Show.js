@@ -49,7 +49,7 @@ export function Show(props) {
         </Grid>
         <Box mt={2}>
           <Grid container>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Box textAlign="left">
                 { metas && metas.map(el => {
                   return (
@@ -58,7 +58,7 @@ export function Show(props) {
                 })}
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} md={6}>
               <Box textAlign="left">
                 <SwaggerUI url="http://rackerlabs.github.io/wadl2swagger/openstack/swagger/dbaas.json"/>
               </Box>
