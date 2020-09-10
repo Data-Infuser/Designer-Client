@@ -4,7 +4,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
 import { apiActions } from '../../actions/apiActions';
 import { Link } from 'react-router-dom';
-
+import { TableEmptyRow, TableLodingProgress } from '../../components/tables/TableUtilRows'
 
 
 export function ApiIndex() {
@@ -39,7 +39,7 @@ export function ApiIndex() {
               <TableLodingProgress colSpan={9}/>
             }
             { !loading && apis && Array.isArray(apis) && apis.length <= 0 &&
-              <EmptyTableRow colSpan={9} text={"등록된 API가 없습니다. 신규 API를 추가해주세요."}/>
+              <TableEmptyRow colSpan={9} text={"등록된 API가 없습니다. 신규 API를 추가해주세요."}/>
             }
             { !loading && apis && Array.isArray(apis) && apis.map(api => {
                 return (
@@ -74,36 +74,5 @@ export function ApiIndex() {
         </Grid>
       </Grid>
     </Container>
-  )
-}
-
-/**
- * 
- * @param props
- * @param {number} props.colSpan 차지하는 Column의 개수
- * @param {string} props.text Row에 들어갈 텍스트
- */
-function EmptyTableRow({ colSpan = 1, text = "Empty Row" }) {
-  return (
-    <TableRow>
-      <TableCell colSpan={colSpan} align="center">
-        {text}
-      </TableCell>
-    </TableRow>
-  )
-}
-
-/**
- * 
- * @param {{colspan: number}} props 
- */
-function TableLodingProgress(props) {
-  const colSpan = props.colSpan || 1;
-  return (
-    <TableRow>
-      <TableCell colSpan={colSpan} align="center">
-        <CircularProgress/>
-      </TableCell>
-    </TableRow>
   )
 }
