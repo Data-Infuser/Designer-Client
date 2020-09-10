@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 
 import {
   Paper,
@@ -18,16 +18,21 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function BorderedTable(props) {
+/**
+ * 
+ * @param {{container: Component, size: number, headers: string[], rows: Object[]}} props
+ */
+export default function BorderedTable({ container, size, headers, rows }) {
   const classes = useStyles();
 
   return (
-    <TableContainer component={props.container}>
-      <Table size={props.size}>
-        {props.headers && (
+    <TableContainer component={container}>
+      <Table size={size}>
+        {headers && (
           <TableHead>
             <TableRow>
-              {props.headers.map((header) => {
+              <TableRow selected/>
+              {headers.map((header) => {
                 return (
                   <TableCell key={`table-header-cell-${header}`} className={classes.borderedCell}>
                     {header}
@@ -39,7 +44,7 @@ export default function BorderedTable(props) {
         )}
 
         <TableBody>
-          {props.rows.map((row) => {
+          {rows.map((row) => {
             return (
               <TableRow key={`table-row-${row[0]}`}>
                 {row.map((col) => {
