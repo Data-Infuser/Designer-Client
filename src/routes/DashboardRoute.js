@@ -4,14 +4,16 @@ import { Home } from '../views/Home';
 import { Layout } from '../views/Layout';
 import { ApisRoute } from './ApiRoute';
 import { MetaRoute } from './MetaRoute';
+import { Box } from '@material-ui/core';
+import { AuthorRoute } from './AuthorRoute';
 
 export function DashboardRoute(props) {
   return (
     <Layout>
       <Route exact path={props.match.path} component={Home} />
       <Switch>
-        <Route path={`/apis`} component={ApisRoute}/>
-        <Route path={`/metas`} component={MetaRoute}/>
+        <AuthorRoute path={`/apis`} component={ApisRoute} roles={["admin", "user"]} />
+        <AuthorRoute path={`/metas`} component={MetaRoute} roles={["admin", "user"]}/>
       </Switch>
     </Layout>
   )
