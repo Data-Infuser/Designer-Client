@@ -20,13 +20,13 @@ import { display } from "@material-ui/system";
 import { useParams, useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
-import { PageTitle, SubTitle } from "components/typos/Title";
-import BorderedTable from "components/tables/BorderedTable";
-
+import { SubTitle } from "components/typos/Title";
 import HelpIcon from "@material-ui/icons/Help";
 import SettingsIcon from "@material-ui/icons/Settings";
 
 import MetaRowForm from "./MetaRowForm";
+import BorderedTable from "../../components/tables/BorderedTable";
+import { PageTitle } from "../../components/typos/Title";
 
 const xsWidth = 767;
 

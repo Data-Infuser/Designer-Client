@@ -31,7 +31,6 @@ export default function BorderedTable({ container, size, headers, rows }) {
         {headers && (
           <TableHead>
             <TableRow>
-              <TableRow selected/>
               {headers.map((header) => {
                 return (
                   <TableCell key={`table-header-cell-${header}`} className={classes.borderedCell}>

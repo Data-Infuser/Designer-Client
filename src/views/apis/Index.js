@@ -39,7 +39,7 @@ export function ApiIndex() {
               <TableLodingProgress colSpan={9}/>
             }
             { !loading && apis && Array.isArray(apis) && apis.length <= 0 &&
-              <EmptyApis/>
+              <EmptyTableRow colSpan={9} text={"등록된 API가 없습니다. 신규 API를 추가해주세요."}/>
             }
             { !loading && apis && Array.isArray(apis) && apis.map(api => {
                 return (
@@ -77,19 +77,28 @@ export function ApiIndex() {
   )
 }
 
-function EmptyApis() {
+/**
+ * 
+ * @param props
+ * @param {number} props.colSpan 차지하는 Column의 개수
+ * @param {string} props.text Row에 들어갈 텍스트
+ */
+function EmptyTableRow({ colSpan = 1, text = "Empty Row" }) {
   return (
     <TableRow>
-      <TableCell colSpan={9} align="center">
-        등록된 API가 없습니다. 신규 API를 등록해주세요.
+      <TableCell colSpan={colSpan} align="center">
+        {text}
       </TableCell>
     </TableRow>
   )
 }
 
+/**
+ * 
+ * @param {{colspan: number}} props 
+ */
 function TableLodingProgress(props) {
   const colSpan = props.colSpan || 1;
-
   return (
     <TableRow>
       <TableCell colSpan={colSpan} align="center">
