@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Box, Grid, Button } from '@material-ui/core';
 import { PageTitle } from '../../components/typos/Title';
 import Pagination from '@material-ui/lab/Pagination';
@@ -6,20 +6,36 @@ import { useSelector, useDispatch } from 'react-redux';
 import { userActions } from '../../actions/userActions';
 import { TableLodingProgress, TableEmptyRow } from '../../components/tables/TableUtilRows';
 import { Link } from 'react-router-dom';
+import ActionDialog from '../../components/dialogs/ActionDialog';
 
 
 export function UserIndex() {
   const users = useSelector(state => state.users.items);
   const loading = useSelector(state => state.users.loading);
   const dispatch = useDispatch();
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(-1);
 
   useEffect(() => {
     dispatch(userActions.index());
   }, [])
 
+  const deleteBtnClick = (userId) => {
+    setSelectedUserId(userId)
+    setDeleteModalOpen(true);
+  }
+
+  const deleteUser = () => {
+    if(selectedUserId <= 0) return;
+    dispatch(userActions.unregistByAdmin(selectedUserId));
+  }
+
   return (
     <Container>
       <PageTitle text={"담당자 관리"} align="left" />
+      <ActionDialog action={deleteUser} open={deleteModalOpen} setOpen={setDeleteModalOpen} titleText="사용자 탈퇴" actionText="삭제" cancelText="취소">
+        정말 사용자를 탈퇴 시키시겠습니까?
+      </ActionDialog>
       <TableContainer component={Paper}>
         <Table aria-label="custom pagination table">
           <TableHead>
@@ -51,7 +67,7 @@ export function UserIndex() {
                   <TableCell align="center">{user.createdAt}</TableCell>
                   <TableCell align="center">
                     <Button variant="outlined" size="small" color="primary" component={Link} to={{ pathname: `/users/${user.id}`, state: {user: user}}}>상세보기</Button>
-                    <Button variant="outlined" size="small" color="secondary">삭제</Button>
+                    <Button variant="outlined" size="small" color="secondary" onClick={() => deleteBtnClick(user.id)}>삭제</Button>
                   </TableCell>
                 </TableRow>
               )

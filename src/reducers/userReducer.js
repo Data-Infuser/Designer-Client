@@ -65,6 +65,19 @@ export function users(state = {
       return produce(state, draft => {
         draft.loading = false;
       })
+    case userConstants.UNREGIST_BY_ADMIN:
+      return produce(state, draft => {
+        draft.loading = true;
+      })
+    case userConstants.UNREGIST_BY_ADMIN_SUCCESS: 
+      return produce(state, draft => {
+        draft.loading = false;
+        draft.items = draft.items.filter(el => el.id !== action.userId);
+      })
+    case userConstants.UNREGIST_BY_ADMIN_FAIL:
+      return produce(state, draft => {
+        draft.loading = false;
+      })
     default:
       return state
   }

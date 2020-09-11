@@ -8,7 +8,8 @@ export const userActions = {
   regist,
   logout,
   index,
-  registByAdmin
+  registByAdmin,
+  unregistByAdmin
 }
 
 function logout() {
@@ -108,7 +109,7 @@ function registByAdmin(userForm) {
     interval = setInterval(() => {
       const newUser = {
         ...userForm,
-        createdAt: moment().format('YYYY-mm-dd'),
+        createdAt: moment().format('YYYY-MM-DD'),
         id: Math.ceil(Math.random()*999999999),
         group: "ptech"
       }
@@ -123,4 +124,21 @@ function registByAdmin(userForm) {
     return { type: userConstants.REGIST_BY_ADMIN_SUCCESS, newUser }
   }
   function fail() { return { type: userConstants.REGIST_BY_ADMIN_FAIL } }
+}
+
+function unregistByAdmin(userId) {
+  let interval;
+  return dispatch => {
+    dispatch(request());
+    interval = setInterval(() => {
+      dispatch(success(userId));
+    }, 300)
+  }
+
+  function request() { return { type: userConstants.UNREGIST_BY_ADMIN } }
+  function success(userId) { 
+    clearInterval(interval)
+    return { type: userConstants.UNREGIST_BY_ADMIN_SUCCESS, userId } 
+  }
+  function fail() { return { type: userConstants.UNREGIST_BY_ADMIN_FAIL } }
 }
