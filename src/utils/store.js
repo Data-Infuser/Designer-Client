@@ -6,6 +6,7 @@ import axiosMiddleware from 'redux-axios-middleware';
 import axiosClient from './axiosHelper';
 import storage from 'redux-persist/lib/storage'
 import { persistStore, persistReducer, createMigrate } from 'redux-persist';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 const loggerMiddleware = createLogger();
 
@@ -46,11 +47,13 @@ const persistedReducer = persistReducer(persistConfig, rootReducer)
 const store = () => {
   let store = createStore(
     persistedReducer,
-    applyMiddleware(
-      axiosMiddleware(axiosClient),
-      thunkMiddleware,
-      loggerMiddleware
-    )
+    composeWithDevTools(
+      applyMiddleware(
+        axiosMiddleware(axiosClient),
+        thunkMiddleware,
+        loggerMiddleware
+      ),
+    ),
   );
   let persistor = persistStore(store);
 
