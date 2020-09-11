@@ -5,7 +5,8 @@ import { alertActions } from './alertActions';
 export const userActions = {
   login,
   regist,
-  logout
+  logout,
+  index
 }
 
 function logout() {
@@ -79,4 +80,22 @@ function regist(registForm) {
       }
     }
   }
+}
+
+function index() {
+  let interval;
+  return dispatch => {
+    dispatch(request());
+    interval = setInterval(() => {
+      const users = [];
+      dispatch(success(users))
+    }, 1500)
+  }
+
+  function request() { return { type: userConstants.INDEX } }
+  function success(users) {
+    clearInterval(interval);
+    return { type: userConstants.INDEX_SUCCESS, users }
+  }
+  function fail() { return { type: userConstants.INDEX_FAIL } }
 }

@@ -40,6 +40,19 @@ export function users(state = {
         draft.loading = false;
       })
     }
+    case userConstants.INDEX:
+      return produce(state, draft => {
+        draft.loading = true;
+      })
+    case userConstants.INDEX_SUCCESS:
+      return produce(state, draft => {
+        draft.loading = false;
+        draft.items = action.users;
+      })
+    case userConstants.INDEX_FAIL:
+      return produce(state, draft => {
+        draft.loading = false;
+      })
     default:
       return state
   }

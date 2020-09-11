@@ -19,10 +19,9 @@ export function TableEmptyRow({ colSpan = 1, text = "Empty Row" }) {
 
 /**
  * 
- * @param {{colspan: number}} props 
+ * @param {{colSpan: number}} props 
  */
-export function TableLodingProgress(props) {
-  const colSpan = props.colSpan || 1;
+export function TableLodingProgress({ colSpan }) {
   return (
     <TableRow>
       <TableCell colSpan={colSpan} align="center">
