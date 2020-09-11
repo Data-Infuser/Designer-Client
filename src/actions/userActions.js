@@ -16,6 +16,41 @@ function logout() {
   history.push("/login");
 }
 
+const dummyUsers = [
+  {
+    id: 2,
+    group: "ptech",
+    loginId: "chunghyup",
+    email: "ch.oh@gmail.com",
+    role: "admin",
+    createdAt: "2020-03-21"
+  },
+  {
+    id: 3,
+    group: "ptech",
+    loginId: "wooyoung",
+    email: "wooyoung@gmail.com",
+    role: "admin",
+    createdAt: "2020-04-01"
+  },
+  {
+    id: 4,
+    group: "ptech",
+    loginId: "gildong",
+    email: "gildong@gmail.com",
+    role: "admin",
+    createdAt: "2020-07-14"
+  },
+  {
+    id: 5,
+    group: "ptech",
+    loginId: "minsu123",
+    email: "minsu123@gmail.com",
+    role: "admin",
+    createdAt: "2020-05-06"
+  }
+]
+
 /**
  *  Axios middleware 를 이용한 login
  * @param {
@@ -87,7 +122,7 @@ function index() {
   return dispatch => {
     dispatch(request());
     interval = setInterval(() => {
-      const users = [];
+      const users = dummyUsers;
       dispatch(success(users))
     }, 1500)
   }

@@ -25,6 +25,7 @@ export function UserIndex() {
               <TableCell align="center">id</TableCell>
               <TableCell align="center">Group</TableCell>
               <TableCell align="center">로그인ID</TableCell>
+              <TableCell align="center">Email</TableCell>
               <TableCell align="center">권한</TableCell>
               <TableCell align="center">가입일</TableCell>
               <TableCell/>
@@ -39,13 +40,17 @@ export function UserIndex() {
             }
             { !loading && users.length > 0 && users.map( user => {
               return (
-                <TableRow>
+                <TableRow key={`users-index-table-row-${user.id}`}>
                   <TableCell align="center">{user.id}</TableCell>
                   <TableCell align="center">{user.group}</TableCell>
                   <TableCell align="center">{user.loginId}</TableCell>
+                  <TableCell align="center">{user.email}</TableCell>
                   <TableCell align="center">{user.role}</TableCell>
                   <TableCell align="center">{user.createdAt}</TableCell>
-                  <TableCell/>
+                  <TableCell align="center">
+                    <Button variant="outlined" size="small" color="primary" component={Link} to={{ pathname: `/users/${user.id}`, state: {user: user}}}>상세보기</Button>
+                    <Button variant="outlined" size="small" color="secondary">삭제</Button>
+                  </TableCell>
                 </TableRow>
               )
             })}
