@@ -4,6 +4,7 @@ import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { apiActions } from '../../actions/apiActions';
 import { useHistory } from 'react-router-dom';
+import { PageTitle } from '../../components/typos/Title';
 
 const useStyles = makeStyles((theme) => ({
 }))
@@ -39,9 +40,7 @@ export function New() {
   }
   return (
     <Container maxWidth='md'>
-      <h2>
-        신규 API 추가
-      </h2>
+      <PageTitle text={`신규 API 추가`} align="left"/>
       <Box mt={2}>
         <FormControl className={classes.formContorrl} fullWidth={true}>
           <InputLabel width="100%" htmlFor="title-input">제목</InputLabel>

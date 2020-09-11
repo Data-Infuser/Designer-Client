@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
-import { Container, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Box, Grid, Button, Link } from '@material-ui/core';
+import { Container, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Box, Grid, Button } from '@material-ui/core';
 import { PageTitle } from '../../components/typos/Title';
 import Pagination from '@material-ui/lab/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
 import { userActions } from '../../actions/userActions';
 import { TableLodingProgress, TableEmptyRow } from '../../components/tables/TableUtilRows';
+import { Link } from 'react-router-dom';
+
 
 export function UserIndex() {
   const users = useSelector(state => state.users.items);
@@ -43,7 +45,7 @@ export function UserIndex() {
                 <TableRow key={`users-index-table-row-${user.id}`}>
                   <TableCell align="center">{user.id}</TableCell>
                   <TableCell align="center">{user.group}</TableCell>
-                  <TableCell align="center">{user.loginId}</TableCell>
+                  <TableCell align="center">{user.username}</TableCell>
                   <TableCell align="center">{user.email}</TableCell>
                   <TableCell align="center">{user.role}</TableCell>
                   <TableCell align="center">{user.createdAt}</TableCell>
@@ -63,8 +65,8 @@ export function UserIndex() {
       </Box>
       <Grid container direction="column" justify="flex-end" alignItems="flex-end">
         <Grid item>
-          <Button variant="outlined" color="primary" component={Link} to='/apis/new'>
-            신규 API 추가
+          <Button variant="outlined" color="primary" component={Link} to='/users/new'>
+            신규 담당자 추가
           </Button>
         </Grid>
       </Grid>

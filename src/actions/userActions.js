@@ -1,12 +1,14 @@
 import { userConstants } from "../constants";
 import { history } from '../utils/history';
 import { alertActions } from './alertActions';
+import moment from 'moment';
 
 export const userActions = {
   login,
   regist,
   logout,
-  index
+  index,
+  registByAdmin
 }
 
 function logout() {
@@ -15,41 +17,6 @@ function logout() {
   localStorage.removeItem("users");
   history.push("/login");
 }
-
-const dummyUsers = [
-  {
-    id: 2,
-    group: "ptech",
-    loginId: "chunghyup",
-    email: "ch.oh@gmail.com",
-    role: "admin",
-    createdAt: "2020-03-21"
-  },
-  {
-    id: 3,
-    group: "ptech",
-    loginId: "wooyoung",
-    email: "wooyoung@gmail.com",
-    role: "admin",
-    createdAt: "2020-04-01"
-  },
-  {
-    id: 4,
-    group: "ptech",
-    loginId: "gildong",
-    email: "gildong@gmail.com",
-    role: "admin",
-    createdAt: "2020-07-14"
-  },
-  {
-    id: 5,
-    group: "ptech",
-    loginId: "minsu123",
-    email: "minsu123@gmail.com",
-    role: "admin",
-    createdAt: "2020-05-06"
-  }
-]
 
 /**
  *  Axios middleware 를 이용한 login
@@ -122,15 +89,38 @@ function index() {
   return dispatch => {
     dispatch(request());
     interval = setInterval(() => {
-      const users = dummyUsers;
-      dispatch(success(users))
+      dispatch(success())
     }, 1500)
   }
 
   function request() { return { type: userConstants.INDEX } }
-  function success(users) {
+  function success() {
     clearInterval(interval);
-    return { type: userConstants.INDEX_SUCCESS, users }
+    return { type: userConstants.INDEX_SUCCESS }
   }
   function fail() { return { type: userConstants.INDEX_FAIL } }
+}
+
+function registByAdmin(userForm) {
+  let interval;
+  return dispatch => {
+    dispatch(request());
+    interval = setInterval(() => {
+      const newUser = {
+        ...userForm,
+        createdAt: moment().format('YYYY-mm-dd'),
+        id: Math.ceil(Math.random()*999999999),
+        group: "ptech"
+      }
+      dispatch(success(newUser));
+      history.push("/users");
+    }, 300)
+  }
+
+  function request() { return { type: userConstants.REGIST_BY_ADMIN } }
+  function success(newUser) {
+    clearInterval(interval);
+    return { type: userConstants.REGIST_BY_ADMIN_SUCCESS, newUser }
+  }
+  function fail() { return { type: userConstants.REGIST_BY_ADMIN_FAIL } }
 }

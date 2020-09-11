@@ -47,9 +47,21 @@ export function users(state = {
     case userConstants.INDEX_SUCCESS:
       return produce(state, draft => {
         draft.loading = false;
-        draft.items = action.users;
       })
     case userConstants.INDEX_FAIL:
+      return produce(state, draft => {
+        draft.loading = false;
+      })
+    case userConstants.REGIST_BY_ADMIN:
+      return produce(state, draft => {
+        draft.loading = true; 
+      })
+    case userConstants.REGIST_BY_ADMIN_SUCCESS:
+      return produce(state, draft => {
+        draft.loading = false;
+        draft.items.push(action.newUser);
+      })
+    case userConstants.REGIST_BY_ADMIN_FAIL:
       return produce(state, draft => {
         draft.loading = false;
       })

@@ -23,11 +23,20 @@ const migrations = {
         items: []
       }
     }
+  },
+  2: (state) => {
+    return {
+      ...state,
+      users: {
+        ...state.users,
+        items: []
+      }
+    }
   }
 }
 const persistConfig = {
   key: 'root',
-  version: 1,
+  version: 2,
   storage,
   migrate: createMigrate(migrations, { debug: true })
 }
