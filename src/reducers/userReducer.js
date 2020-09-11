@@ -5,7 +5,8 @@ import { history } from '../utils/history';
 
 export function users(state = {
   loading: false,
-  user: {}
+  user: {},
+  items: []
 }, action) {
   switch (action.type) {
     case userConstants.LOGIN:

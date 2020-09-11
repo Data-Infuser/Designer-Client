@@ -5,13 +5,31 @@ import rootReducer from '../reducers';
 import axiosMiddleware from 'redux-axios-middleware';
 import axiosClient from './axiosHelper';
 import storage from 'redux-persist/lib/storage'
-import { persistStore, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer, createMigrate } from 'redux-persist';
 
 const loggerMiddleware = createLogger();
 
+const migrations = {
+  0: (state) => {
+    return {
+      ...state
+    }
+  },
+  1: (state) => {
+    return {
+      ...state,
+      users: {
+        ...state.users,
+        items: []
+      }
+    }
+  }
+}
 const persistConfig = {
   key: 'root',
-  storage
+  version: 1,
+  storage,
+  migrate: createMigrate(migrations, { debug: true })
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
