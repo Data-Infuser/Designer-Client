@@ -13,6 +13,12 @@ import {
 } from '@material-ui/core';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+const TypeLengthMap = {
+  "int": 10,
+  "double": "16, 4",
+  "text": 255,
+}
+
 export default function MetaRowForm(props) {
   const [col, setCol] = useState(props.col);
   const formHeaders = props.formHeaders;
@@ -20,27 +26,47 @@ export default function MetaRowForm(props) {
 
   const getType = (val) => {
     switch (val) {
-      case "int":
-        return "int";
-      case "double":
-        return "double";
       case "varchar":
         return "text";
       default:
-        return "text";
+        return val;
     }
   };
 
-  const handleChange = (e) => {
-    console.log(e.target.name, e.target.value);
+  const getTypeLength = (type) => {
+    const parsedType = getType(type);
+    if (TypeLengthMap[type]) {
+      return TypeLengthMap[type];
+    }
 
+    return "";
+  }
+
+  const getFormat = (type) => {
+    switch (type) {
+      case "datetime":
+        return "yyyy-MM-dd HH:mm:ss";
+      case "date":
+        return "yyyy-MM-dd";
+      case "time":
+        return "HH:mm:ss";
+      default:
+        return "";
+    }
+  }
+
+  const isDisableDate = (type) => {
+    return ["datetime", "date", "time"].indexOf(type) < 0;
+  }
+
+  const handleChange = (e) => {
     let value = null;
     switch(e.target.name) {
       case 'nullable':
         value = e.target.checked;
         break;
       default:
-        value = e.target.value;
+        value = e.target.value.trim();
         break;
     }
 
@@ -106,7 +132,7 @@ export default function MetaRowForm(props) {
           </InputLabel>
           <Input
             id={`meta-${col.id}-input-length`}
-            value={col.length}
+            value={col.length || getTypeLength(col.type)}
             name="length"
             className="form"
             onChange={handleChange}
@@ -120,11 +146,11 @@ export default function MetaRowForm(props) {
           </InputLabel>
           <Input
             id={`meta-${col.id}-input-format`}
-            value={col.format}
+            value={col.format || getFormat(col.type)}
             name="format"
             className="form"
             onChange={handleChange}
-            disabled={col.type !== "date"}
+            disabled={isDisableDate(col.type)}
           />
           <FormHelperText className="helpText">
             {formHeaders[4].tooltip}

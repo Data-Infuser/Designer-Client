@@ -38,7 +38,7 @@ const formHeaders = [
     tooltip: "활용자에게 제공되는 컬럼 명칭입니다.",
   },
   { key: "formHeader3", name: "컬럼 타입" },
-  { key: "formHeader4", name: "최대 길이" },
+  { key: "formHeader4", name: "최대 길이", tooltip: "정수: 자릿수, 소수: 전체자릿수, 소수점 자릿수" },
   { key: "formHeader5", name: "날짜 형식", tooltip: "ex) yyyy-MM-dd HH:mm:ss" },
   { key: "formHeader6", name: "빈값 허용" },
   { key: "formHeader7", name: "검색 설정" },
@@ -56,7 +56,7 @@ const useStyles = makeStyles((theme) => ({
   flexRow: {
     textAlign: "left",
     width: `calc(100% / ${formHeaders.length})`,
-    padding: theme.spacing(2),
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     backgroundColor: "#fff",
     borderRight: "solid 1px #ddd",
     borderBottom: "solid 1px #ddd",

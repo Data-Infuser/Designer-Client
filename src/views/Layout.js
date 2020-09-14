@@ -66,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     width: '100%',
+    paddingBottom: theme.spacing(2),
     flexGrow: 1,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
