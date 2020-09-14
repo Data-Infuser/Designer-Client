@@ -37,16 +37,6 @@ function login(loginForm) {
           username: loginForm.username,
           password: loginForm.password
         }
-      },
-      options: {
-        onSuccess: ({ dispatch, response }) => {
-          dispatch({ type: userConstants.LOGIN_SUCCESS, payload: response });
-          history.push("/");
-        },
-        onError: ({ dispatch, error }) => {
-          dispatch({ type: userConstants.LOGIN_FAIL, error: error });
-          alertActions.handleError(dispatch, error);
-        }
       }
     }
   }
@@ -70,16 +60,6 @@ function regist(registForm) {
         method: 'POST',
         url: '/oauth/regist',
         data: registForm
-      },
-      options: {
-        onSuccess: ({ dispatch, response }) => {
-          dispatch({ type: userConstants.REGIST_SUCCESS, payload: response });
-          history.push('/login');
-        },
-        onError: ({ dispatch, error }) => {
-          dispatch({ type: userConstants.REGIST_FAIL, error: error });
-          alertActions.handleError(dispatch, error);
-        }
       }
     }
   }

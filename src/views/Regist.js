@@ -5,6 +5,7 @@ import { userActions } from '../actions/userActions';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../serviceWorker';
 import { history } from '../utils/history';
+import { alertActions } from '../actions/alertActions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +68,14 @@ function Regist() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(userActions.regist(registForm));
+    dispatch(userActions.regist(registForm))
+    .then((response) => {
+      if(response.error) {
+        alertActions.handleError(dispatch, response.error);
+        return;
+      }
+      history.push('/login');
+    })
   }
 
   return (
