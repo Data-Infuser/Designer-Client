@@ -67,19 +67,26 @@ const dummyApis = []
 export function apis(state = {
   loading: false,
   items: [],
-  lastIndex: 1
+  lastIndex: 1,
+  dict: {},
+  index: []
 }, action) {
   switch (action.type) {
     case apiConstants.INDEX:
       return produce(state, draft => {
         draft.loading = true;
+        draft.dict = {}
+        draft.index = []
       })
     case apiConstants.INDEX_SUCCESS:
       return produce(state, draft => {
+        const pagination = action.payload.data;
+        draft.index = [];
+        pagination.items.map((item) => {
+          draft.index.push(item.id);
+          draft.dict[item.id] = item
+        })
         draft.loading = false;
-        if(!draft.items || draft.items.length === 0) {
-          draft.items = dummyApis;  
-        }
       })
     case apiConstants.INDEX_FAIL:
       return produce(state, draft => {

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { apiActions } from '../../actions/apiActions';
 import { useHistory } from 'react-router-dom';
 import { PageTitle } from '../../components/typos/Title';
+import { alertActions } from '../../actions/alertActions';
 
 const useStyles = makeStyles((theme) => ({
 }))
@@ -21,8 +22,8 @@ export function New() {
     title: "",
     nameSpace: "",
     description: "",
-    maxCountPerDay: 10000,
-    maxCountPerMonth: 1000000
+    dailyMaxCount: 10000,
+    monthlyMaxCount: 1000000
   }
 
   const [form, setForm] = useState(initialForm);
@@ -35,8 +36,13 @@ export function New() {
   }
 
   const onSaveButtonClick = (e) => {
-    dispatch(apiActions.postNewApi(form));
-    history.push("/apis")
+    dispatch(apiActions.postNewApi(form)).then((response) => {
+      if(response.error) {
+        alertActions.handleError(dispatch, response.error);
+        return;
+      }
+      history.push("/apis")
+    });
   }
   return (
     <Container maxWidth='md'>
@@ -71,13 +77,13 @@ export function New() {
       <Box mt={2}>
         <FormControl className={classes.formContorrl} fullWidth={true}>
           <InputLabel width="100%" htmlFor="maxCountPerDay-input">일별 최대 호출 건수</InputLabel>
-          <Input id="maxCountPerDay-input" aria-describedby="maxCountPerDay-helper-text" name="maxCountPerDay" value={form.maxCountPerDay} onChange={handleChange}/>
+          <Input id="maxCountPerDay-input" aria-describedby="maxCountPerDay-helper-text" name="maxCountPerDay" value={form.dailyMaxCount} onChange={handleChange}/>
         </FormControl>
       </Box>
       <Box mt={2}>
         <FormControl className={classes.formContorrl} fullWidth={true}>
           <InputLabel width="100%" htmlFor="maxCountPerMonth-input">월별 최대 호출 건수</InputLabel>
-          <Input id="maxCountPerMonth-input" aria-describedby="maxCountPerMonth-helper-text" name="maxCountPerMonth" value={form.maxCountPerMonth} onChange={handleChange}/>
+          <Input id="maxCountPerMonth-input" aria-describedby="maxCountPerMonth-helper-text" name="maxCountPerMonth" value={form.monthlyMaxCount} onChange={handleChange}/>
         </FormControl>
       </Box>
       <Box mt={2} textAlign="right">

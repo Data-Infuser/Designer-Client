@@ -9,37 +9,47 @@ export const apiActions = {
   getApi
 }
 
-function getIndex() {
-  let interval;
-  return dispatch => {
-    dispatch(request());
-    interval = setInterval(() => {
-      dispatch(success());
-    }, 500)
-  }
-
-  function request() { return { type: apiConstants.INDEX } }
-  function success() { 
-    clearInterval(interval);
-    return { type: apiConstants.INDEX_SUCCESS } 
+function getIndex(page = 1, perPage = 10) {
+  return {
+    type: 'API_INDEX',
+    payload: {
+      request: {
+        method: 'GET',
+        url: '/stages',
+        data: {
+          page: page,
+          perPage: perPage
+        }
+      }
+    }
   }
 }
 
 function postNewApi(form) {
-  let interval;
-  return dispatch => {
-    dispatch(request());
-    interval = setInterval(() => {
-      dispatch(success(form));
-    }, 500)
+  return {
+    type: 'API_POST',
+    payload: {
+      request: {
+        method: 'POST',
+        url: '/applications',
+        data: form
+      }
+    }
   }
+  // let interval;
+  // return dispatch => {
+  //   dispatch(request());
+  //   interval = setInterval(() => {
+  //     dispatch(success(form));
+  //   }, 500)
+  // }
 
-  function request() { return { type: apiConstants.POST } }
-  function success(form) { 
-    clearInterval(interval);
-    return { type: apiConstants.POST_SUCCESS, form } 
-  }
-  function failure() { return { type: apiConstants.POST_FAIL}}
+  // function request() { return { type: apiConstants.POST } }
+  // function success(form) { 
+  //   clearInterval(interval);
+  //   return { type: apiConstants.POST_SUCCESS, form } 
+  // }
+  // function failure() { return { type: apiConstants.POST_FAIL}}
 }
 
 function getApi(id) {

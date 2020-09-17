@@ -33,11 +33,21 @@ const migrations = {
         items: []
       }
     }
+  },
+  3: (state) => {
+    return {
+      ...state,
+      apis: {
+        ...state.apis,
+        dict: {},
+        index: []
+      }
+    }
   }
 }
 const persistConfig = {
   key: 'root',
-  version: 2,
+  version: 3,
   storage,
   migrate: createMigrate(migrations, { debug: true })
 }
