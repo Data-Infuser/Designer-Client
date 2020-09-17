@@ -27,6 +27,7 @@ import SettingsIcon from "@material-ui/icons/Settings";
 import MetaRowForm from "./MetaRowForm";
 import BorderedTable from "../../components/tables/BorderedTable";
 import { PageTitle } from "../../components/typos/Title";
+import OperationForm from "./OperationForm";
 
 const xsWidth = 767;
 
@@ -110,6 +111,15 @@ export function MetaShow(props) {
   const { id } = useParams();
   const metas = useSelector((state) => state.metas.items);
   const meta = metas.find((el) => el.id == id);
+
+  // TODO: api / meta / operation 정의 필요
+  const operation = {
+    title: '오퍼레이션 테스트',
+    desc: '오퍼레이션 설명',
+    method: 'GET',
+    endPoint: 'test-api'
+  };  
+
   const cols = meta.columns;
 
   const history = useHistory();
@@ -122,11 +132,10 @@ export function MetaShow(props) {
   };
 
   const onButtonClick = (e) => {
-    console.log(cols);
-    // history.push({
-    //   pathname: `/metas/${meta.id}/operation/new`,
-    //   state: { meta: meta },
-    // });
+    history.push({
+      pathname: `/apis/${meta.apiId}`,
+      state: { meta: meta },
+    });
   };
 
   return (
@@ -199,6 +208,19 @@ export function MetaShow(props) {
               })}
             </Box>
           </Box>
+
+          <Box className="BottomGutter">
+            <Box textAlign="left">
+              <SubTitle
+                text="오퍼레이션 정의"
+                smallText="API 호출에 관한 동작방식을 정의합니다."
+              />
+            </Box>
+            <Box>
+              <OperationForm classes={classes} operation={operation} />
+            </Box>
+          </Box>
+
           <Box textAlign="right">
             <Button variant="contained" color="primary" onClick={onButtonClick}>
               저장

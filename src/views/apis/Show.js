@@ -14,7 +14,8 @@ export function Show(props) {
   const [dataType, setDataType] = useState();
 
   const { id } = useParams();
-  let api = props.location.state ? props.location.state.api : null;
+  //let api = props.location.state ? props.location.state.api : null;
+  const api = useSelector(state => state.apis.items).filter(el => el.id == id);
   const metas = useSelector(state => state.metas.items).filter(el => el.apiId == api.id);
   console.log(metas);
   useEffect(() => {
