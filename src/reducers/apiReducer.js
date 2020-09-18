@@ -116,11 +116,21 @@ export function apis(state = {
         }
         draft.items.push(newObj);
       })
+    case apiConstants.POST_FAIL:
+      return produce(state, draft => {
+        draft.loading = false;
+      })
     case apiConstants.GET:
       return produce(state, draft => {
         draft.loading = true;
       })
     case apiConstants.GET_SUCCESS:
+      return produce(state, draft => {
+        const api = action.payload.data;
+        draft.dict[api.id] = api;
+        draft.loading = false;
+      })
+    case apiConstants.GET_FAIL:
       return produce(state, draft => {
         draft.loading = false;
       })
