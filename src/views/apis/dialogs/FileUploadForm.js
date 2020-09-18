@@ -4,16 +4,19 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import { useDispatch, useSelector } from 'react-redux';
 import { metaActions } from '../../../actions';
 import { Alert } from '@material-ui/lab';
+import { alertActions } from '../../../actions/alertActions';
+import { useHistory } from 'react-router-dom';
 
 export function FileUploadForm(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const loading = useSelector(state => state.metas.loading);
   const api = props.api;
   const setAlert = props.setAlert;
 
   const initialFileForm = {
-    apiId: api.id,
-    type: "file",
+    stageId: api.id,
+    dataType: "file",
     title: "",
     skip: 0,
     sheet: 0,
@@ -49,7 +52,30 @@ export function FileUploadForm(props) {
       setAlert("제목은 6자 이상이어야 합니다.");
       return;
     }
-    dispatch(metaActions.postMetaUpload(fileForm));
+    dispatch(metaActions.uploadFile(fileForm.file))
+    .then((response) => {
+      if(response.error) {
+        alertActions.handleError(dispatch, response.error);
+        return;
+      }
+
+      const fileInfo = response.payload.data;
+      const data = {
+        ...fileForm,
+        originalFileName: fileInfo.originalFileName,
+        ext: fileInfo.ext,
+        filePath: fileInfo.filePath
+      }
+      dispatch(metaActions.postMetaUpload(data))
+      .then((response) => {
+        if(response.error) {
+          alertActions.handleError(dispatch, response.error);
+          return;
+        }
+
+        history.push(`/metas/${response.payload.data.id}`)
+      });
+    })
   }
 
   return (

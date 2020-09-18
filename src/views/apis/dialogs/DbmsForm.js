@@ -3,14 +3,18 @@ import { Container, Grid, Box, FormControl, Input, InputLabel, Button, FormHelpe
 import { useDispatch, useSelector } from 'react-redux';
 import { metaActions } from '../../../actions';
 import { Alert } from '@material-ui/lab';
+import { history } from '../../../utils/history';
+import { useHistory } from 'react-router-dom';
+import { alertActions } from '../../../actions/alertActions';
 
 export function DbmsForm(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
   const loading = useSelector(state => state.metas.loading);
   const api = props.api;
   const initialForm = {
-    apiId: api.id,
-    type: "dbms",
+    stageId: api.id,
+    dataType: "dbms",
     title: "",
     dbms: "",
     host: "",
@@ -44,7 +48,15 @@ export function DbmsForm(props) {
       setMessage("제목은 6자 이상이어야 합니다.");
       return;
     }
-    dispatch(metaActions.postMetaUpload(form));
+    dispatch(metaActions.postMetaUpload(form))
+    .then((response) => {
+      if(response.error) {
+        alertActions.handleError(dispatch, response.error);
+        return;
+      }
+
+      history.push(`/metas/${response.payload.data.id}`)
+    });
   }
 
   return (

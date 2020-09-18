@@ -20,7 +20,7 @@ export function Show(props) {
   const api = useSelector(state => state.apis.dict)[id];
 
   useEffect(() => {
-    if(!api) { dispatch(apiActions.getApi(id)).then((response) => {
+    dispatch(apiActions.getApi(id)).then((response) => {
       if(response.error) {
         /**
          * 문제가 발생하는 경우 목록 페이지로 redirect
@@ -29,7 +29,7 @@ export function Show(props) {
         history.push("/apis");
         return;
       }
-    })}
+    })
   }, [])
 
   const handelMeneSelected = (dataType) => {

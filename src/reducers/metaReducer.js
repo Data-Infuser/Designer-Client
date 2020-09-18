@@ -22,6 +22,18 @@ export function metas(state = {
       return produce(state, draft => {
         draft.loading = false;
       })
+    case metaConstants.UPLOAD_FILE:
+      return produce(state, draft => {
+        draft.loading = true;
+      })
+    case metaConstants.UPLOAD_FILE_SUCCESS:
+      return produce(state, draft => {
+        draft.loading = true;
+      })
+    case metaConstants.UPLOAD_FILE_FAIL:
+      return produce(state, draft => {
+        draft.loading = false;
+      })
     case metaConstants.ADD_OPERATION:
       return produce(state, draft => {
         const meta = draft.items.find(el => el.id == action.metaId);
