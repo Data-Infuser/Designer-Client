@@ -4,7 +4,9 @@ import produce from 'immer';
 export function metas(state = {
   loading: false,
   items: [],
-  lastIndex: 1
+  lastIndex: 1,
+  index: [],
+  dict: {}
 }, action) {
   switch (action.type) {
     case metaConstants.POST:
@@ -38,6 +40,20 @@ export function metas(state = {
       return produce(state, draft => {
         const meta = draft.items.find(el => el.id == action.metaId);
         meta["operation"] = action.operation;
+      })
+    case metaConstants.GET:
+      return produce(state, draft => {
+        draft.loading = true;
+      })
+    case metaConstants.GET_SUCCESS:
+      return produce(state, draft => {
+        const item = action.payload.data;
+        draft.loading = false;
+        draft.dict[item.id] = item;
+      })
+    case metaConstants.GET_FAIL:
+      return produce(state, draft => {
+        draft.loading = false;
       })
     default:
       return state

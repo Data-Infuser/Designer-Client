@@ -36,8 +36,10 @@ export function ApiIndex() {
               <TableCell align="center">호출주소</TableCell>
               <TableCell align="center">Operation 갯수</TableCell>
               <TableCell align="center">상태</TableCell>
-              <TableCell align="center">업데이트일</TableCell> {/* TODO: 최종 호출 시간 구현 후 변경 */}
-              <TableCell align="center">생성일</TableCell> {/* TODO: 배포일 */}
+              {/* TODO: 최종 호출 시간 구현 후 변경 */}
+              <TableCell align="center">업데이트일</TableCell> 
+              {/* TODO: 배포일 */}
+              <TableCell align="center">생성일</TableCell> 
               <TableCell/>
             </TableRow>
           </TableHead>

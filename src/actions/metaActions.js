@@ -5,6 +5,7 @@ import store from '../utils/store';
 import axiosClient from '../utils/axiosHelper';
 
 export const metaActions = {
+  getMeta,
   postMetaUpload,
   addOperation,
   uploadFile
@@ -40,23 +41,18 @@ function postMetaUpload(form) {
       }
     }
   }
-  
-  // let interval;
-  // return dispatch => {
-  //   dispatch(request());
-  //   interval = setInterval(() => {
-  //     const newMeta = metaFactory(form);
-  //     dispatch(success(newMeta))
-  //     history.push(`/metas/${newMeta.id}`)
-  //   }, 300)
-  // }
+}
 
-  // function request() { return { type: metaConstants.POST } }
-  // function success(meta) { 
-  //   clearInterval(interval);
-  //   return { type: metaConstants.POST_SUCCESS, meta } 
-  // }
-  // function failure() { return { type: metaConstants.POST_FAIL}}
+function getMeta(id) {
+  return {
+    type: metaConstants.GET,
+    payload: {
+      request: {
+        method: 'GET',
+        url: `/metas/${id}`,
+      }
+    }
+  }
 }
 
 function addOperation(metaId, operation) {

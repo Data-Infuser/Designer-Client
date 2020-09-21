@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Box,
@@ -19,7 +19,7 @@ import {
 import { display } from "@material-ui/system";
 import { useParams, useHistory } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { SubTitle } from "components/typos/Title";
 import HelpIcon from "@material-ui/icons/Help";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -28,6 +28,8 @@ import MetaRowForm from "./MetaRowForm";
 import BorderedTable from "../../components/tables/BorderedTable";
 import { PageTitle } from "../../components/typos/Title";
 import OperationForm from "./OperationForm";
+import { metaActions } from '../../actions/metaActions';
+import { alertActions } from '../../actions/alertActions';
 
 const xsWidth = 767;
 
@@ -109,8 +111,10 @@ const useStyles = makeStyles((theme) => ({
 
 export function MetaShow(props) {
   const { id } = useParams();
-  const metas = useSelector((state) => state.metas.items);
-  const meta = metas.find((el) => el.id == id);
+  const metaDict = useSelector((state) => state.metas.dict);
+  const meta = metaDict[id];
+
+  const [cols, setCols] = useState();
 
   // TODO: api / meta / operation 정의 필요
   const operation = {
@@ -120,15 +124,30 @@ export function MetaShow(props) {
     endPoint: 'test-api'
   };  
 
-  const cols = meta.columns;
-
   const history = useHistory();
-
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(metaActions.getMeta(id)).then((response) => {
+      if(response.error) {
+        alertActions.handleError(dispatch, response.error);
+        return;
+      }
+    })  
+  }, [])
+
+  useEffect(() => {
+    if(meta && meta.columns && !cols) {
+      setCols(meta.columns);
+    }
+  }, [meta])
 
   const updateCol = (newCol) => {
     const colIdx = cols.findIndex((el) => el.id == newCol.id);
-    cols[colIdx] = newCol;
+    const copiedCols = [...cols];
+    copiedCols[colIdx] = newCol;
+    setCols(copiedCols);
   };
 
   const onButtonClick = (e) => {
@@ -154,14 +173,7 @@ export function MetaShow(props) {
             <BorderedTable
               container={Paper}
               size="small"
-              headers={[
-                "BIZRNO",
-                "CORP_NM",
-                "RPPR_NM",
-                "ADDR",
-                "TELNO",
-                "RMK_TXT",
-              ]}
+              headers={meta.columns.map(meta => meta.columnName)}
               rows={JSON.parse(meta.samples).items}
             />
           </Box>
@@ -195,7 +207,7 @@ export function MetaShow(props) {
                 })}
               </div>
 
-              {cols.map((col, idx) => {
+              {meta.columns.map((col, idx) => {
                 return (
                   <MetaRowForm
                     key={`MetaRowForm${idx}`}
