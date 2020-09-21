@@ -11,8 +11,9 @@ function handleError(dispatch, error) {
   if(error.response) {
     errCode = error.response.data.code;
   } else {
-    errCode = error.message;
-  } 
+    errCode = 'GLOBAL_0002'
+  }
+
   const errorMessage = errorConstants[errCode] ? errorConstants[errCode] : errorConstants.GLOBAL_0001
   dispatch(alertActions.alert(errorMessage));
 }
