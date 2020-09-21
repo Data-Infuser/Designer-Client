@@ -143,10 +143,9 @@ export function MetaShow(props) {
     }
   }, [meta])
 
-  const updateCol = (newCol) => {
-    const colIdx = cols.findIndex((el) => el.id == newCol.id);
+  const updateCol = (idx, newCol) => {
     const copiedCols = [...cols];
-    copiedCols[colIdx] = newCol;
+    copiedCols[idx] = newCol;
     setCols(copiedCols);
   };
 
@@ -211,6 +210,7 @@ export function MetaShow(props) {
                 return (
                   <MetaRowForm
                     key={`MetaRowForm${idx}`}
+                    idx={idx}
                     col={col}
                     updateCol={updateCol}
                     formHeaders={formHeaders}

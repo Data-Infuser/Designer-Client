@@ -23,6 +23,7 @@ export default function MetaRowForm(props) {
   const [col, setCol] = useState(props.col);
   const formHeaders = props.formHeaders;
   const classes = props.classes;
+  const idx = props.idx;
 
   const getType = (val) => {
     switch (val) {
@@ -77,7 +78,7 @@ export default function MetaRowForm(props) {
 
     setCol(updatedCol);
 
-    props.updateCol(updatedCol);
+    props.updateCol(idx, updatedCol);
   };
 
   return (
