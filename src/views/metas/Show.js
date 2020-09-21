@@ -150,6 +150,11 @@ export function MetaShow(props) {
   };
 
   const onButtonClick = (e) => {
+    /**
+     * TODO: API 연동 필요 아래 두가지 API 사용 가능
+     * 1: POST /services, PUT /metas/{metaId}/columns 2개 API를 이용하여 각각 저장
+     * 2: PUT /metas/{metaId}/columns 로 두 정보를 한번에 update
+     */
     history.push({
       pathname: `/apis/${meta.apiId}`,
       state: { meta: meta },
