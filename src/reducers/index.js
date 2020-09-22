@@ -5,13 +5,15 @@ import { alerts } from './alertReducer';
 import { apis } from './apiReducer';
 import { metas } from './metaReducer';
 import { operations } from './operationReducer';
+import { resources } from './resourceReducer';
 
 const rootReducer = combineReducers({
   users,
   alerts,
   apis,
   metas,
-  operations
+  operations,
+  resources
 });
 
 export default rootReducer;

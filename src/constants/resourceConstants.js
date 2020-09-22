@@ -1,0 +1,5 @@
+export const resourceConstants = {
+  INDEX: 'RESOURCE_INDEX',
+  INDEX_SUCCESS: 'RESOURCE_INDEX_SUCCESS',
+  INDEX_FAIL: 'RESOURCE_INDEX_FAIL'
+}

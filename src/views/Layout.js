@@ -146,7 +146,7 @@ export function Layout(props) {
           <ListItem button component={Link} to='/apis'>
             <ListItemText primary="API 관리"/>
           </ListItem>
-          <ListItem button component={Link} to='/metas'>
+          <ListItem button component={Link} to='/resources'>
             <ListItemText primary="원천 데이터 관리"/>
           </ListItem>
           { currentUser.loginId === "admin" &&
