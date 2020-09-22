@@ -64,31 +64,3 @@ function addOperation(metaId, operation) {
     })
   }
 }
-
-function metaFactory(form) {
-  const index = store.store.getState().metas.lastIndex;
-  const newMeta = {
-    ...form,
-    id: index
-  }
-  return newMeta;
-}
-
-async function postFile(file) {
-  return new Promise(async (resolve, reject) => {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const response = await axiosClient.post( `/files`, formData, {
-        headers: { 
-          'Content-Type': 'multipart/form-data',
-        }
-      })
-      const fileData = response.data;
-      resolve(fileData);
-    } catch (err) {
-      reject(err);
-    }
-  })
-}

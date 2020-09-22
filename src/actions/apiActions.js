@@ -15,7 +15,7 @@ function getIndex(page = 1, perPage = 10) {
     payload: {
       request: {
         method: 'GET',
-        url: '/stages',
+        url: `/stages?page=${page}&perPage=${perPage}`,
         data: {
           page: page,
           perPage: perPage

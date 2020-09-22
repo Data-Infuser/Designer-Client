@@ -1,27 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button, Grid, Container } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
 import { apiActions } from '../../actions/apiActions';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { TableEmptyRow, TableLodingProgress } from '../../components/tables/TableUtilRows'
 import { alertActions } from '../../actions/alertActions';
 import moment from 'moment';
+import queryString from 'query-string';
 
+export function ApiIndex(props) {
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-export function ApiIndex() {
   const apisStore = useSelector(state => state.apis);
   const loading = useSelector(state => state.apis.loading);
 
-  const dispatch = useDispatch();
+  const {page, perPage} = queryString.parse(props.location.search);
+  
+  const [currentPage, setCurrentPage] = useState(page ? page : 1);
+  const [currentPerPage, setCurrentPerpage] = useState(perPage ? perPage : 10);
+
   useEffect(() => {
-    dispatch(apiActions.getIndex()).then((response) => {
+    dispatch(apiActions.getIndex(currentPage, currentPerPage)).then((response) => {
       if(response.error) {
         alertActions.handleError(dispatch, response.error);
         return;
       }
+      history.push(`/apis?page=${currentPage}&perPage=${currentPerPage}`)
     })
-  }, [])
+  }, [currentPage, currentPerPage])
+
+  const handlePageChange = (event, value) => {
+    if(value*currentPerPage > apisStore.totalCount) return;
+    setCurrentPage(value);
+  }
 
   return (
     <Container>
@@ -57,7 +70,7 @@ export function ApiIndex() {
                     <TableCell align="center">{api.id}</TableCell>
                     <TableCell align="center">{api.application.title}</TableCell>
                     <TableCell align="center">{api.name}</TableCell>
-                    <TableCell align="center">{`/${api.application.namespace}/${api.name}`}</TableCell>
+                    <TableCell align="center">{`/${api.application.nameSpace}/${api.name}`}</TableCell>
                     <TableCell align="center">{api.metas.length}</TableCell>
                     <TableCell align="center">{api.status}</TableCell>
                     <TableCell align="center">{moment(api.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
@@ -74,7 +87,15 @@ export function ApiIndex() {
         </Table>
       </TableContainer>
       <Box mt={4} alignItems="center" flexWrap="wrap" style={{textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center"}}>
-        <Pagination count={100}  showFirstButton showLastButton variant="outlined" shape="rounded" size="large" page={Number(1)}/>
+        <Pagination 
+          count={parseInt(apisStore.totalCount/apisStore.perPage) + (((apisStore.totalCount%apisStore.perPage) === 0) ? 0 : 1 )}  
+          showFirstButton 
+          showLastButton 
+          variant="outlined" 
+          shape="rounded" 
+          size="large" 
+          page={Number(currentPage)} 
+          onChange={handlePageChange}/>
       </Box>
       <Grid container direction="column" justify="flex-end" alignItems="flex-end">
         <Grid item>

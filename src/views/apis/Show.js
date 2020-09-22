@@ -8,7 +8,6 @@ import { MetaBox } from './MetaBox';
 import SwaggerUI from 'swagger-ui-react';
 import "swagger-ui-react/swagger-ui.css";
 import { alertActions } from '../../actions/alertActions';
-import { history } from '../../utils/history';
 
 export function Show(props) {
   const dispatch = useDispatch();

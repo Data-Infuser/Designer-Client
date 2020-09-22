@@ -9,7 +9,10 @@ export function apis(state = {
   items: [],
   lastIndex: 1,
   dict: {},
-  index: []
+  index: [],
+  page: 1,
+  perPage: 10,
+  totalCount: 0
 }, action) {
   switch (action.type) {
     case apiConstants.INDEX:
@@ -26,6 +29,9 @@ export function apis(state = {
           draft.index.push(item.id);
           draft.dict[item.id] = item
         })
+        draft.page = pagination.page;
+        draft.perPage = pagination.perPage;
+        draft.totalCount = pagination.totalCount;
         draft.loading = false;
       })
     case apiConstants.INDEX_FAIL:
