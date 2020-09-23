@@ -8,10 +8,19 @@ import { TableEmptyRow, TableLodingProgress } from '../../components/tables/Tabl
 import { alertActions } from '../../actions/alertActions';
 import moment from 'moment';
 import queryString from 'query-string';
+import { PageTitle } from '../../components/typos/Title';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  btnMargin: {
+    marginRight: theme.spacing(1),
+  }
+}));
 
 export function ApiIndex(props) {
   const dispatch = useDispatch();
   const history = useHistory();
+  const classes = useStyles();
 
   const apisStore = useSelector(state => state.apis);
   const loading = useSelector(state => state.apis.loading);
@@ -38,7 +47,8 @@ export function ApiIndex(props) {
 
   return (
     <Container>
-      <h2> API 목록 </h2>
+      <PageTitle text="API 목록" />
+
       <TableContainer component={Paper}>
         <Table aria-label="custom pagination table">
           <TableHead>
@@ -68,7 +78,11 @@ export function ApiIndex(props) {
                 return (
                   <TableRow key={`apis-index-table-${api.id}`}>
                     <TableCell align="center">{api.id}</TableCell>
-                    <TableCell align="center">{api.application.title}</TableCell>
+                    <TableCell align="center">
+                      <Link to={{ pathname: `/apis/${api.id}`, state: {api: api}}}>
+                        {api.application.title}
+                      </Link>
+                    </TableCell>
                     <TableCell align="center">{api.name}</TableCell>
                     <TableCell align="center">{`/${api.application.nameSpace}/${api.name}`}</TableCell>
                     <TableCell align="center">{api.metas.length}</TableCell>
@@ -76,8 +90,23 @@ export function ApiIndex(props) {
                     <TableCell align="center">{moment(api.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                     <TableCell align="center">{moment(api.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                     <TableCell>
-                      <Button variant="outlined" size="small" color="primary" component={Link} to={{ pathname: `/apis/${api.id}`, state: {api: api}}}>API 관리</Button>
-                      <Button variant="outlined" size="small" color="secondary">버전 관리</Button>
+                      <Button 
+                        variant="outlined"
+                        size="small"
+                        color="primary"
+                        component={Link}
+                        className={classes.btnMargin}
+                        to={{ pathname: `/apis/${api.id}`, state: {api: api}}}
+                        >
+                        API 관리
+                      </Button>
+                      <Button 
+                        variant="outlined"
+                        size="small"
+                        color="secondary"
+                        >
+                        버전 관리
+                      </Button>
                     </TableCell>
                   </TableRow>
                 )
