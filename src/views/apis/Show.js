@@ -8,6 +8,8 @@ import { MetaBox } from './MetaBox';
 import SwaggerUI from 'swagger-ui-react';
 import "swagger-ui-react/swagger-ui.css";
 import { alertActions } from '../../actions/alertActions';
+import property from '../../configs/property.json';
+const server = property.designerServerHost;
 
 export function Show(props) {
   const dispatch = useDispatch();
@@ -71,7 +73,7 @@ export function Show(props) {
               </Grid>
               <Grid item xs={12} md={6}>
                 <Box textAlign="left">
-                  <SwaggerUI url="http://rackerlabs.github.io/wadl2swagger/openstack/swagger/dbaas.json"/>
+                  <SwaggerUI url={`${server}/stages/${api.id}/api-docs`}/>
                 </Box>
               </Grid>
             </Grid>
