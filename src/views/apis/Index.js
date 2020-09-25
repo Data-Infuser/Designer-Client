@@ -96,8 +96,8 @@ export function ApiIndex(props) {
                         {api.application.title}
                       </Link>
                     </TableCell>
-                    <TableCell align="center">{api.name}</TableCell>
-                    <TableCell align="center">{`/${api.application.nameSpace}/${api.name}`}</TableCell>
+                    <TableCell align="center">v{api.name}</TableCell>
+                    <TableCell align="center">{`/${api.application.nameSpace}/v${api.name}`}</TableCell>
                     <TableCell align="center">{api.metas.length}</TableCell>
                     <TableCell align="center">{api.status}</TableCell>
                     <TableCell align="center">{moment(api.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, Container, Box, DialogActions, Button, DialogContent, Typography } from '@material-ui/core';
+import { Dialog, Container, Box, DialogActions, Button, DialogContent, Typography, Paper, TableRow, TableCell, TableBody, TableContainer, TableHead, Table } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { applicationActions } from '../../actions/applicationActions';
 import { alertActions } from '../../actions/alertActions';
 import { SubTitle } from '../../components/typos/Title';
 import { Alert } from '@material-ui/lab';
-import { apiActions } from '../../actions/apiActions';
+import moment from 'moment';
+
 
 export function VersionDialog(props) {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export function VersionDialog(props) {
       scroll='paper'
       aria-labelledby="scroll-dialog-title"
       aria-describedby="scroll-dialog-description"
-      maxWidth={'sm'}
+      maxWidth={'md'}
       disableBackdropClick={true}
       fullWidth={true}
     > 
@@ -75,11 +76,35 @@ export function VersionDialog(props) {
         { !loading && application &&
           <Box>
             <SubTitle text='버전 현황'/>
-            { application.stages && Array.isArray(application.stages) && application.stages.map((stage) => {
-              return (
-                <Typography>{stage.id}</Typography>
-              );
-            })}
+            <Box maxHeight={400}>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell align="center">id</TableCell>
+                      <TableCell align="center">버전</TableCell>
+                      <TableCell align="center">상태</TableCell>
+                      <TableCell align="center">수정일</TableCell>
+                      <TableCell align="center">생성일</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    { application.stages && Array.isArray(application.stages) && application.stages.map((stage) => {
+                      return (
+                        <TableRow>
+                          <TableCell align="center">{stage.id}</TableCell>
+                          <TableCell align="center">v{stage.name}</TableCell>
+                          <TableCell align="center">{stage.status}</TableCell>
+                          <TableCell align="center">{moment(stage.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                          <TableCell align="center">{moment(stage.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Box>
+            
           </Box>
         }
       </DialogContent>
