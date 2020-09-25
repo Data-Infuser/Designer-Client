@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button, Grid, Container } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
@@ -33,7 +33,8 @@ export function ApiIndex(props) {
 
   // 버전관리 관련 state
   const [versionModalOpen, setVersionModalOpen] = useState(false);
-
+  const [applicationId, setApplicationId] = useState(null);
+  
   useEffect(() => {
     dispatch(apiActions.getIndex(currentPage, currentPerPage)).then((response) => {
       if(response.error) {
@@ -49,10 +50,18 @@ export function ApiIndex(props) {
     setCurrentPage(value);
   }
 
+  const handleVersionModal = (applicationId, open, rerender=false) => {
+    setApplicationId(applicationId);
+    setVersionModalOpen(open);
+    if(rerender) {
+      dispatch(apiActions.getIndex(currentPage, currentPerPage))
+    }
+  }
+
   return (
     <Container>
       <PageTitle text="API 목록" />
-      <VersionDialog setOpen={setVersionModalOpen} open={versionModalOpen} />
+      <VersionDialog applicationId={applicationId} handleModal={handleVersionModal} setOpen={setVersionModalOpen} open={versionModalOpen} />
       <TableContainer component={Paper}>
         <Table aria-label="custom pagination table">
           <TableHead>
@@ -108,7 +117,7 @@ export function ApiIndex(props) {
                         variant="outlined"
                         size="small"
                         color="secondary"
-                        onClick={() => setVersionModalOpen(true)}
+                        onClick={() => handleVersionModal(api.applicationId, true)}
                         >
                         버전 관리
                       </Button>

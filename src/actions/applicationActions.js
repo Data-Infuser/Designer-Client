@@ -1,8 +1,9 @@
 
 import { applicationConstants } from '../constants/applicationConstants';
 
-export const apiActions = {
-  getApp
+export const applicationActions = {
+  getApp,
+  postStage
 }
 
 function getApp(id) {
@@ -12,6 +13,18 @@ function getApp(id) {
       request: {
         method: 'GET',
         url: `/applications/${id}`
+      }
+    }
+  }
+}
+
+function postStage(applicationId) {
+  return {
+    type: applicationConstants.POST_STAGE,
+    payload: {
+      request: {
+        method: 'POST',
+        url: `/applications/${applicationId}/stages`
       }
     }
   }
