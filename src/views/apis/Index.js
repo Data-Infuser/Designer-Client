@@ -10,6 +10,7 @@ import moment from 'moment';
 import queryString from 'query-string';
 import { PageTitle } from '../../components/typos/Title';
 import { makeStyles } from '@material-ui/core/styles';
+import { VersionDialog } from './VersionDialog';
 
 const useStyles = makeStyles((theme) => ({
   btnMargin: {
@@ -25,10 +26,13 @@ export function ApiIndex(props) {
   const apisStore = useSelector(state => state.apis);
   const loading = useSelector(state => state.apis.loading);
 
+  // pagination 관련 state
   const {page, perPage} = queryString.parse(props.location.search);
-  
   const [currentPage, setCurrentPage] = useState(page ? page : 1);
   const [currentPerPage, setCurrentPerpage] = useState(perPage ? perPage : 10);
+
+  // 버전관리 관련 state
+  const [versionModalOpen, setVersionModalOpen] = useState(false);
 
   useEffect(() => {
     dispatch(apiActions.getIndex(currentPage, currentPerPage)).then((response) => {
@@ -48,7 +52,7 @@ export function ApiIndex(props) {
   return (
     <Container>
       <PageTitle text="API 목록" />
-
+      <VersionDialog setOpen={setVersionModalOpen} open={versionModalOpen} />
       <TableContainer component={Paper}>
         <Table aria-label="custom pagination table">
           <TableHead>
@@ -104,6 +108,7 @@ export function ApiIndex(props) {
                         variant="outlined"
                         size="small"
                         color="secondary"
+                        onClick={() => setVersionModalOpen(true)}
                         >
                         버전 관리
                       </Button>
