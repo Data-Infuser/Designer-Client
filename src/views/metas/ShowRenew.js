@@ -13,20 +13,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFile, faDatabase, faLink } from '@fortawesome/free-solid-svg-icons'
 import { MetaSchema } from './MetaSchema';
 
-const formHeaders = [
-  { key: "formHeader1", name: "원본 컬럼명" },
-  {
-    key: "formHeader2",
-    name: "제공 컬럼명",
-    tooltip: "활용자에게 제공되는 컬럼 명칭입니다.",
-  },
-  { key: "formHeader3", name: "컬럼 타입" },
-  { key: "formHeader4", name: "최대 길이", tooltip: "정수: 자릿수, 소수: 전체자릿수, 소수점 자릿수" },
-  { key: "formHeader5", name: "날짜 형식", tooltip: "ex) yyyy-MM-dd HH:mm:ss" },
-  { key: "formHeader6", name: "빈값 허용" },
-  { key: "formHeader7", name: "검색 설정" },
-];
-
 const useStyles = makeStyles((theme) => ({
   root: {
     textAlign: "left",
@@ -93,32 +79,37 @@ export function ShowMetaConfig(props) {
     }
   }  
 
-  return meta && (
-    <div className={classes.root}>
-      <Grid container>
-        <Grid item xs={12}>
-          <div className={classes.dataInfo}>
-            {dataTypeIcon}
-            <span className={classes.dataName}>
-              {meta.originalFileName}
-            </span>
-          </div>
-        </Grid>
-      </Grid>
+  return (
 
-      <Grid container>
-        <Grid item lg={4} md={6} xs={12}>
-          <MetaSchema cols={meta.columns} />
-        
+    <div className={classes.root}>
+      {meta && 
+        <div>
+        <Grid container>
+          <Grid item xs={12}>
+            <div className={classes.dataInfo}>
+              {dataTypeIcon}
+              <span className={classes.dataName}>
+                {meta.originalFileName}
+              </span>
+            </div>
+          </Grid>
+        </Grid>
+
+        <Grid container>
+          <Grid item lg={4} md={6} xs={12}>
+            <MetaSchema cols={meta.columns} />
+          
+            l4 m6 x12
+          </Grid>
+          <Grid item lg={4} md={6} xs={12}>
           l4 m6 x12
+          </Grid>
+          <Grid item lg={4} md={12}>
+            l4 m12
+          </Grid>
         </Grid>
-        <Grid item lg={4} md={6} xs={12}>
-        l4 m6 x12
-        </Grid>
-        <Grid item lg={4} md={12}>
-          l4 m12
-        </Grid>
-      </Grid>
+        </div>
+      }
     </div>
   )
 }
