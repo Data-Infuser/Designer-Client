@@ -44,9 +44,7 @@ export function apis(state = {
       })
     case apiConstants.POST_SUCCESS:
       return produce(state, draft => {
-        const item = action.payload.data;
         draft.loading = false;
-        draft.dict[item.id] = item
       })
     case apiConstants.POST_FAIL:
       return produce(state, draft => {

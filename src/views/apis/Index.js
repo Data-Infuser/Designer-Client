@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { Box, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, Paper, Typography, TablePagination, CircularProgress, Button, Grid, Container } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,6 +10,7 @@ import moment from 'moment';
 import queryString from 'query-string';
 import { PageTitle } from '../../components/typos/Title';
 import { makeStyles } from '@material-ui/core/styles';
+import { VersionDialog } from './VersionDialog';
 
 const useStyles = makeStyles((theme) => ({
   btnMargin: {
@@ -25,11 +26,15 @@ export function ApiIndex(props) {
   const apisStore = useSelector(state => state.apis);
   const loading = useSelector(state => state.apis.loading);
 
+  // pagination 관련 state
   const {page, perPage} = queryString.parse(props.location.search);
-  
   const [currentPage, setCurrentPage] = useState(page ? page : 1);
   const [currentPerPage, setCurrentPerpage] = useState(perPage ? perPage : 10);
 
+  // 버전관리 관련 state
+  const [versionModalOpen, setVersionModalOpen] = useState(false);
+  const [applicationId, setApplicationId] = useState(null);
+  
   useEffect(() => {
     dispatch(apiActions.getIndex(currentPage, currentPerPage)).then((response) => {
       if(response.error) {
@@ -45,10 +50,18 @@ export function ApiIndex(props) {
     setCurrentPage(value);
   }
 
+  const handleVersionModal = (applicationId, open, rerender=false) => {
+    setApplicationId(applicationId);
+    setVersionModalOpen(open);
+    if(rerender) {
+      dispatch(apiActions.getIndex(currentPage, currentPerPage))
+    }
+  }
+
   return (
     <Container>
       <PageTitle text="API 목록" />
-
+      <VersionDialog applicationId={applicationId} handleModal={handleVersionModal} setOpen={setVersionModalOpen} open={versionModalOpen} />
       <TableContainer component={Paper}>
         <Table aria-label="custom pagination table">
           <TableHead>
@@ -83,8 +96,8 @@ export function ApiIndex(props) {
                         {api.application.title}
                       </Link>
                     </TableCell>
-                    <TableCell align="center">{api.name}</TableCell>
-                    <TableCell align="center">{`/${api.application.nameSpace}/${api.name}`}</TableCell>
+                    <TableCell align="center">v{api.name}</TableCell>
+                    <TableCell align="center">{`/${api.application.nameSpace}/v${api.name}`}</TableCell>
                     <TableCell align="center">{api.metas.length}</TableCell>
                     <TableCell align="center">{api.status}</TableCell>
                     <TableCell align="center">{moment(api.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
@@ -104,6 +117,7 @@ export function ApiIndex(props) {
                         variant="outlined"
                         size="small"
                         color="secondary"
+                        onClick={() => handleVersionModal(api.applicationId, true)}
                         >
                         버전 관리
                       </Button>
