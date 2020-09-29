@@ -2,6 +2,12 @@ html {
   font-size: 16px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box !important;
+}
+
 .App {
   text-align: center;
 }

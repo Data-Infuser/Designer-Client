@@ -11,7 +11,9 @@ import InsertDriveFileIcon from '@material-ui/icons/InsertDriveFile';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { faFile, faDatabase, faLink } from '@fortawesome/free-solid-svg-icons'
-import { MetaSchema } from './MetaSchema';
+import { MetaSchema } from './components/MetaSchema';
+import { MetaOptions } from './components/MetaOptions';
+import { MetaDocs } from './components/MetaDocs';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export function ShowMetaConfig(props) {
+export function MetaConfig(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -60,7 +62,18 @@ export function ShowMetaConfig(props) {
 
   useEffect(() => {
     if(meta && meta.columns && !cols) {
-      setCols(meta.columns);
+      let columns = [];
+
+      for (const col of meta.columns) {
+        const obj = {...col};
+        obj.isNullable = obj.isNullable || false;
+        obj.isUnique = obj.isUnique || false;
+        obj.isHidden = obj.isHidden || false;
+
+        columns.push(obj);
+      }
+
+      setCols(columns);
     }
   }, [meta])
 
@@ -77,37 +90,41 @@ export function ShowMetaConfig(props) {
         dataTypeIcon = <FontAwesomeIcon icon={faLink} />
         break;
     }
-  }  
+  }
 
   return (
 
     <div className={classes.root}>
       {meta && 
         <div>
-        <Grid container>
-          <Grid item xs={12}>
-            <div className={classes.dataInfo}>
-              {dataTypeIcon}
-              <span className={classes.dataName}>
-                {meta.originalFileName}
-              </span>
-            </div>
+          <Grid container>
+            <Grid item xs={12}>
+              <div className={classes.dataInfo}>
+                {dataTypeIcon}
+                <span className={classes.dataName}>
+                  {meta.originalFileName}
+                </span>
+              </div>
+            </Grid>
           </Grid>
-        </Grid>
 
-        <Grid container>
-          <Grid item lg={4} md={6} xs={12}>
-            <MetaSchema cols={meta.columns} />
-          
-            l4 m6 x12
-          </Grid>
-          <Grid item lg={4} md={6} xs={12}>
-          l4 m6 x12
-          </Grid>
-          <Grid item lg={4} md={12}>
-            l4 m12
-          </Grid>
-        </Grid>
+          {cols &&
+            <Grid container>
+              <Grid item lg={4} md={6} xs={12}>
+                <MetaSchema cols={cols} />
+              
+                l4 m6 x12
+              </Grid>
+              <Grid item lg={4} md={6} xs={12}>
+                <MetaOptions />
+                l4 m6 x12
+              </Grid>
+              <Grid item lg={4} md={12}>
+                <MetaDocs />
+                l4 m12
+              </Grid>
+            </Grid>
+          }
         </div>
       }
     </div>

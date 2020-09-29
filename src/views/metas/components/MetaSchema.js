@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { MetaColInfo } from './MetaColInfo';
 import { SubTitle } from 'components/typos/Title';
 
+import schemeLogo from 'assets/imgs/logos/schema_logo.png';
+import { MetaSchemaTitle } from './MetaSchemaTitle';
+
 const formHeaders = [
   { key: "formHeader1", name: "원본 컬럼명" },
   {
@@ -23,19 +26,16 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     backgroundColor: '#D1D6E1',
     padding: theme.spacing(2),
-  }
+  },
 }));
 
 export function MetaSchema(props) {
-  const cols = props.cols;
-  console.log(cols);
+  const cols = props.cols;  
   const classes = useStyles();
 
   return (
     <div>
-      <div>
-        스키마 정의
-      </div>
+      <MetaSchemaTitle img={schemeLogo} title='스키마정의' />
 
       <div className={classes.root}>
         {cols.map((col, idx) => {

@@ -3,7 +3,7 @@ import { Box } from '@material-ui/core';
 import { Route, Switch } from 'react-router-dom';
 import { MetaShow } from '../views/metas/Show';
 import { OperationNew } from 'views/operations/New';
-import { ShowMetaConfig } from '../views/metas/ShowRenew';
+import { MetaConfig } from '../views/metas/MetaConfig';
 
 export function MetaRoute(props) {
   return (
@@ -11,7 +11,7 @@ export function MetaRoute(props) {
       <Switch>
         <Route path={`${props.match.path}/:id/operation/new`} component={OperationNew}/>
         <Route path={`${props.match.path}/:id/back`} component={MetaShow}/>
-        <Route path={`${props.match.path}/:id`} component={ShowMetaConfig}/>
+        <Route path={`${props.match.path}/:id`} component={MetaConfig}/>
       </Switch>
     </Box>
   )
