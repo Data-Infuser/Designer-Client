@@ -27,6 +27,7 @@ export function VersionDialog(props) {
   
   useEffect(() => {
     if(open === true) {
+      setChanged(false);
       dispatch(applicationActions.getApp(applicationId)).then(
         (response) => {
           if(response.error) {
