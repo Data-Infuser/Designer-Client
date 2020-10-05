@@ -49,6 +49,7 @@ export function ResourceIndex(props) {
               <TableCell align="center">데이터명</TableCell>
               <TableCell align="center">데이터 타입</TableCell>
               <TableCell align="center">상태</TableCell>
+              <TableCell align="center">API</TableCell>
               <TableCell align="center">데이터 수정일</TableCell>
               <TableCell align="center">데이터 생성일</TableCell>
               <TableCell/>
@@ -69,6 +70,7 @@ export function ResourceIndex(props) {
                     <TableCell align="center">{meta.title}</TableCell>
                     <TableCell align="center">{meta.dataType}</TableCell>
                     <TableCell align="center">{meta.status}</TableCell>
+                    <TableCell align="center">/{meta.stage.application.nameSpace}/v{meta.stage.name}</TableCell>
                     <TableCell align="center">{moment(meta.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                     <TableCell align="center">{moment(meta.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                     <TableCell>
