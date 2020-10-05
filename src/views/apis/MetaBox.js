@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box, Paper, Typography, Button, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link, useHistory } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,7 +43,7 @@ export function MetaBox(props) {
               <Button variant="contained" color="primary" size='small'>상세</Button>
             }
             { !meta.operation &&
-              <Button variant="contained" color="primary" size='small'>operation 설정</Button>
+              <Button variant="contained" color="primary" size='small' component={Link} to={{ pathname: `/metas/${meta.id}`, state: {meta: meta}}}>operation 설정</Button>
             }
           </Grid>
         </Grid>
