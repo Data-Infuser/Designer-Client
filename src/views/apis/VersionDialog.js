@@ -7,6 +7,8 @@ import { alertActions } from '../../actions/alertActions';
 import { SubTitle } from '../../components/typos/Title';
 import { Alert } from '@material-ui/lab';
 import moment from 'moment';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 
 export function VersionDialog(props) {
@@ -17,6 +19,7 @@ export function VersionDialog(props) {
   const applicationId = props.applicationId;
 
   const [errorMessage, setErrorMessage] = useState();
+  const [changed, setChanged] = useState(false);
 
   const applications = useSelector(state => state.applications);
   const loading = applications.loading;
@@ -36,7 +39,7 @@ export function VersionDialog(props) {
   }, [open]);
 
   const handleClose = (e) => {
-    handleModal(applicationId, false, false);
+    handleModal(applicationId, false, changed);
   }
 
   const handlePost = (e) => {
@@ -47,6 +50,26 @@ export function VersionDialog(props) {
           return;
         }
         handleModal(applicationId, false, true);
+      }
+    )
+  }
+
+  const deleteStage = (stageId) => {
+    dispatch(applicationActions.deleteStage(stageId)).then(
+      (response) => {
+        if(response.error) {
+          setErrorMessage(response.error);
+          return;
+        }
+        setChanged(true);
+        dispatch(applicationActions.getApp(applicationId)).then(
+          (response) => {
+            if(response.error) {
+              alertActions.handleError(dispatch, response.error);
+              return;
+            }
+          }
+        );
       }
     )
   }
@@ -86,10 +109,12 @@ export function VersionDialog(props) {
                       <TableCell align="center">상태</TableCell>
                       <TableCell align="center">수정일</TableCell>
                       <TableCell align="center">생성일</TableCell>
+                      <TableCell></TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     { application.stages && Array.isArray(application.stages) && application.stages.map((stage) => {
+                      let button;
                       return (
                         <TableRow>
                           <TableCell align="center">{stage.id}</TableCell>
@@ -97,6 +122,7 @@ export function VersionDialog(props) {
                           <TableCell align="center">{stage.status}</TableCell>
                           <TableCell align="center">{moment(stage.updatedAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
                           <TableCell align="center">{moment(stage.createdAt).format('YYYY-MM-DD HH:mm:ss')}</TableCell>
+                          <TableCell align="center"><Button onClick={() => deleteStage(stage.id)}><FontAwesomeIcon icon={faTrash}/></Button></TableCell>
                         </TableRow>
                       );
                     })}

@@ -1,5 +1,7 @@
 export const errorConstants = {
+  //원인을 알 수 없는 Error 또는 예외처리가 되지 않은 Error
   GLOBAL_0001: '문제가 발생하였습니다.\n 관리자에게 문의하여주세요.\nERROR_CODE:0001',
+  //Network Error ex)인터넷 연결이 되지 않은 경우
   GLOBAL_0002: '문제가 발생하였습니다.\n 관리자에게 문의하여주세요.\nERROR_CODE:0002',
 
   AUTH_0001: '등록되지 않은 사용자입니다.',
@@ -18,6 +20,7 @@ export const errorConstants = {
   STAGE_003: "Operation 정보를 설정하지 않은 원천 데이터가 있습니다.",
   STAGE_004: "데이터가 적재되지 않은 API 입니다.",
   STAGE_005: "배포 상태가 아닌 API 입니다.",
+  STAGE_006: "배포 상태의 버전은 삭제할 수 없습니다.",  
 
   META_001: "원천데이터 정보를 찾을 수 없습니다.",
   META_002: "입력되지 않은 내용이 있습니다.",

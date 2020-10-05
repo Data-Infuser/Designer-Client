@@ -3,7 +3,8 @@ import { applicationConstants } from '../constants/applicationConstants';
 
 export const applicationActions = {
   getApp,
-  postStage
+  postStage,
+  deleteStage
 }
 
 function getApp(id) {
@@ -25,6 +26,18 @@ function postStage(applicationId) {
       request: {
         method: 'POST',
         url: `/applications/${applicationId}/stages`
+      }
+    }
+  }
+}
+
+function deleteStage(stageId) {
+  return {
+    type: applicationConstants.DELETE_STAGE,
+    payload: {
+      request: {
+        method: 'DELETE',
+        url: `/stages/${stageId}`
       }
     }
   }
