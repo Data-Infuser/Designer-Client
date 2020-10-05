@@ -43,7 +43,7 @@ export function MetaBox(props) {
               <Button variant="contained" color="primary" size='small'>상세</Button>
             }
             { !meta.operation &&
-              <Button variant="contained" color="primary" size='small' component={Link} to={{ pathname: `/metas/${meta.id}`, state: {meta: meta}}}>operation 설정</Button>
+              <Button variant="contained" color="primary" size='small' component={Link} to={{ pathname: `/metas/${meta.id}/back`, state: {meta: meta}}}>operation 설정</Button>
             }
           </Grid>
         </Grid>
